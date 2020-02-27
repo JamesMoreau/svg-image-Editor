@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>CHANGE ME</title>
+    <title>SVG Editor</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="CHANGE ME">
@@ -17,11 +17,33 @@
     <!-- Custom CSS End -->
 </head>
 <body>
-    <h3>Download test</h3>
+    <h3>File Log Panel</h3>
     If the A3 stub is running and simple.gpx exists in the uploads/ directory on the server, then clicking on the link below will download it from the server.<br>
     <a href="rects.svg">rects.svg</a>
     <p></p>
     <img src="rects.svg">
+
+    <table style="width:100%">
+        <tr>
+            <th>Image (click to download)</th>
+            <th>File name (click to download)</th>
+            <th>File Size</th>
+            <th>Number of rectangles</th>
+            <th>Number of circles</th>
+            <th>Number of paths</th>
+            <th>Number of groups</th>
+        </tr>
+
+        <tr>
+            <td><img src="uploads/rects.svg" border=3 height=100 width=100></img></td>
+            <td><a href="uploads/rects.svg">quad01.svg</a></td>
+            <td>1KB</td>
+            <td>1</td>
+            <td>5</td>
+            <td>2</td>
+            <td>3</td>
+        </tr>
+    </table>
 
     <hr>
     <div id="blah">I am blah</div>
