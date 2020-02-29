@@ -1,6 +1,13 @@
 // Put all onload AJAX calls here, and event listeners
 $(document).ready(function() {
     // On page-load AJAX Example
+    
+    //!how to do this dynamically, ie making row elements
+    var sTempTableRow = '<tr><td>cell-1 </td><td>cell-2 </td><td>cell-3 </td><td>cell-4 </td></tr>'
+    $('#file_log_table').append(sTempTableRow);
+
+
+
     $.ajax({
         type: 'get',            //Request type
         dataType: 'json',       //Data type - we will use JSON for almost everything 
@@ -26,6 +33,31 @@ $(document).ready(function() {
             console.log(error); 
         }
     });
+
+function add_elements_to_file_log_table() {
+
+    var newRow = tableRef.newRow();
+    
+    var newCell = newRow.insertCell(0);
+
+    var newText  = document.createTextNode('New row');
+
+    newCell.appendChild(newText);
+    
+    /* var body = document.body,
+        tbl  = document.createElement('table');
+    tbl.style.width  = '100%';
+    tbl.style.border = '1px solid black'; */
+
+    /* for(var i = 0; i < 3; i++) {
+        var tr = tbl.insertRow();
+        for(var j = 0; j < 2; j++) {
+            var td = tr.insertCell();
+            td.appendChild(document.createTextNode('Cell'));
+            td.style.border = '1px solid black';
+        }
+    } */
+}
 
     // Event listener form example , we can use this instead explicitly listening for events
     // No redirects if possible
