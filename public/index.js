@@ -1,5 +1,5 @@
 // Put all onload AJAX calls here, and event listeners
-$(document).ready(function() {
+$(document).ready(function () {
     // On page-load AJAX Example
     add_elements_to_file_log_table();
 
@@ -17,27 +17,27 @@ $(document).ready(function() {
                 so we do not need to parse it on the server.
                 JavaScript really does handle JSONs seamlessly
             */
-            $('#blah').html("On page load, received string '"+data.foo+"' from server");
+            $('#blah').html("On page load, received string '" + data.foo + "' from server");
             //We write the object to the console to show that the request was successful
-            console.log(data); 
+            console.log(data);
 
         },
-        fail: function(error) {
+        fail: function (error) {
             // Non-200 return, do something with error
             $('#blah').html("On page load, received error from server");
-            console.log(error); 
+            console.log(error);
         }
     });
 
- 
+
 
 
 
 
     // Event listener form example , we can use this instead explicitly listening for events
     // No redirects if possible
-    $('#someform').submit(function(e){
-        $('#blah').html("Form has data: "+$('#entryBox').val());
+    $('#someform').submit(function (e) {
+        $('#blah').html("Form has data: " + $('#entryBox').val());
         e.preventDefault();
         //Pass data to the Ajax call, so it gets passed to the server
         $.ajax({
@@ -46,32 +46,32 @@ $(document).ready(function() {
     });
 });
 
-function appendLogToHtml(files){
+function appendLogToHtml(files) {
     console.log(files);
     console.log(files.length);
 
-    for (let i = 0; i < files.length; i+=1) {
+    for (let i = 0; i < files.length; i += 1) {
         let row = "<tr>";
-        
+
         row += '<td><img src=uploads/' + files[i].fileName + ' border=3 height=100 width=100></td>';
 
         // console.log(files[i]);
         // console.log(row); 
-        
+
         row += '<td><a href="uploads/' + files[i].fileName + '">' + files[i].fileName + '</a></td>';
 
         console.log(files[i].size);
-        
+
         row += '<td>' + files[i].size + '</td>';
-        
+
         row += '<td>1</td>';
-        
+
         row += '<td>5</td>';
-        
+
         row += '<td>2</td>';
-        
+
         row += '<td>3</td>';
-        
+
         row += '</tr>';
 
         $('#file_log_table').append(row);
@@ -86,9 +86,9 @@ function add_elements_to_file_log_table() {
         success: function (directory) {
             appendLogToHtml(directory);
         },
-        fail: function(error) {
+        fail: function (error) {
             $('#blah').html("On page load, received error from server");
-            console.log(error); 
+            console.log(error);
         }
     });
 }
