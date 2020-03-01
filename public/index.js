@@ -1,12 +1,7 @@
 // Put all onload AJAX calls here, and event listeners
 $(document).ready(function() {
     // On page-load AJAX Example
-    
-    //!how to do this dynamically, ie making row elements
-    var sTempTableRow = '<tr><td>cell-1 </td><td>cell-2 </td><td>cell-3 </td><td>cell-4 </td></tr>'
-    $('#file_log_table').append(sTempTableRow);
-
-
+    add_elements_to_file_log_table();
 
     $.ajax({
         type: 'get',            //Request type
@@ -34,30 +29,10 @@ $(document).ready(function() {
         }
     });
 
-function add_elements_to_file_log_table() {
+ 
 
-    var newRow = tableRef.newRow();
-    
-    var newCell = newRow.insertCell(0);
 
-    var newText  = document.createTextNode('New row');
 
-    newCell.appendChild(newText);
-    
-    /* var body = document.body,
-        tbl  = document.createElement('table');
-    tbl.style.width  = '100%';
-    tbl.style.border = '1px solid black'; */
-
-    /* for(var i = 0; i < 3; i++) {
-        var tr = tbl.insertRow();
-        for(var j = 0; j < 2; j++) {
-            var td = tr.insertCell();
-            td.appendChild(document.createTextNode('Cell'));
-            td.style.border = '1px solid black';
-        }
-    } */
-}
 
     // Event listener form example , we can use this instead explicitly listening for events
     // No redirects if possible
@@ -70,3 +45,50 @@ function add_elements_to_file_log_table() {
         });
     });
 });
+
+function appendLogToHtml(files){
+    console.log(files);
+    console.log(files.length);
+
+    for (let i = 0; i < files.length; i+=1) {
+        let row = "<tr>";
+        
+        row += '<td><img src=uploads/' + files[i].fileName + ' border=3 height=100 width=100></td>';
+
+        // console.log(files[i]);
+        // console.log(row); 
+        
+        row += '<td><a href="uploads/' + files[i].fileName + '">' + files[i].fileName + '</a></td>';
+
+        console.log(files[i].size);
+        
+        row += '<td>' + files[i].size + '</td>';
+        
+        row += '<td>1</td>';
+        
+        row += '<td>5</td>';
+        
+        row += '<td>2</td>';
+        
+        row += '<td>3</td>';
+        
+        row += '</tr>';
+
+        $('#file_log_table').append(row);
+    }
+}
+
+function add_elements_to_file_log_table() {
+    $.ajax({
+        type: 'get',
+        dataType: 'json',
+        url: '/getFiles',
+        success: function (directory) {
+            appendLogToHtml(directory);
+        },
+        fail: function(error) {
+            $('#blah').html("On page load, received error from server");
+            console.log(error); 
+        }
+    });
+}

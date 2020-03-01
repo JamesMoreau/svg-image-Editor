@@ -3,6 +3,12 @@
 // C library API
 const ffi = require('ffi-napi');
 
+let cLib = ffi.Library('..so path', {
+  "functionName": ["returnType", ["param1", "param2"]],
+});
+
+// cLib.functionName()
+
 // Express App (Routes)
 const express = require("express");
 const app     = express();
@@ -46,8 +52,10 @@ app.post('/upload', function(req, res) {
   }
  
   let uploadFile = req.files.uploadFile;
+  console.log("Files: " + req.files);
+  fs
  
-  // Use the mv() method to place the file somewhere on your server
+  // Use the mv() c to place the file somewhere on your server
   uploadFile.mv('uploads/' + uploadFile.name, function(err) {
     if(err) {
       return res.status(500).send(err);
@@ -70,6 +78,22 @@ app.get('/uploads/:name', function(req , res){
 });
 
 //******************** Your code goes here ******************** 
+
+app.get('/getFiles', function(req , res) {
+  let files = fs.readdirSync('./uploads/');
+  console.log('Sending the files...');
+  console.log(files);
+  let listOfFiles = []
+  for(let x in files){
+    let fileStats = fs.statSync(__dirname+'/uploads/' + files[x]);
+    listOfFiles.push({
+      fileName: files[x],
+      size: fileStats.size
+    });
+  }
+  console.log(listOfFiles)
+  res.send(listOfFiles);
+});
 
 //Sample endpoint
 app.get('/someendpoint', function(req , res){
