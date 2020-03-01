@@ -47,4 +47,7 @@ bool assign_xml_svg_groups(SVGimage* img, xmlNode* r);
 bool assign_xml_recursive_groups(Group* g, xmlNode* groupNode);
 bool validate_xml(xmlDoc* doc, char* schema);
 
+/* library wrappers */
+char* SVGtoJSON_Wrapper(char* filename, char* schemaFile);
+
 #endif

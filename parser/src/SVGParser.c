@@ -768,6 +768,11 @@ char* SVGtoJSON(const SVGimage* image) {
 	return (strdup(b));
 }
 
+char* SVGtoJSON_Wrapper(char* filename, char* schemaFile) {
+	SVGimage* img = createValidSVGimage(filename, schemaFile);
+	return(SVGtoJSON(img));
+}
+
 SVGimage* JSONtoSVG(const char* svgString) {
 	if (!svgString) return (NULL);
 	char* s = strdup(svgString);

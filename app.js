@@ -3,8 +3,10 @@
 // C library API
 const ffi = require('ffi-napi');
 
-let cLib = ffi.Library('..so path', {
-  "functionName": ["returnType", ["param1", "param2"]],
+let cLib = ffi.Library('./parser/bin/libsvgparse.so', {
+  //"functionName": ["returnType", ["param1", "param2"]],
+  //"writeSVGimage": ["bool", ["string", "string"]],
+  "SVGtoJSON_Wrapper": ["string", ["string", "string"]],
 });
 
 // cLib.functionName()
@@ -88,7 +90,8 @@ app.get('/getFiles', function (req, res) {
     let fileStats = fs.statSync(__dirname + '/uploads/' + files[x]);
     listOfFiles.push({
       fileName: files[x],
-      size: fileStats.size
+      size: fileStats.size,
+      SVGdata: JSON.parse(cLib.SVGtoJSON_Wrapper(__dirname + '/uploads/' + files[x], './parser/test/schemaFiles/svg.xsd')),
     });
   }
   console.log(listOfFiles)

@@ -29,11 +29,6 @@ $(document).ready(function () {
         }
     });
 
-
-
-
-
-
     // Event listener form example , we can use this instead explicitly listening for events
     // No redirects if possible
     $('#someform').submit(function (e) {
@@ -47,8 +42,8 @@ $(document).ready(function () {
 });
 
 function appendLogToHtml(files) {
-    console.log(files);
-    console.log(files.length);
+    // console.log(files);
+    // console.log(files.length);
 
     for (let i = 0; i < files.length; i += 1) {
         let row = "<tr>";
@@ -62,15 +57,15 @@ function appendLogToHtml(files) {
 
         console.log(files[i].size);
 
-        row += '<td>' + files[i].size + '</td>';
+        row += '<td>' + files[i].size + ' (bytes)</td>';
 
-        row += '<td>1</td>';
+        row += '<td>' + files[i].SVGdata.numRect + '</td>';
 
-        row += '<td>5</td>';
+        row += '<td>' + files[i].SVGdata.numCirc + '</td>';
 
-        row += '<td>2</td>';
+        row += '<td>' + files[i].SVGdata.numPaths + '</td>';
 
-        row += '<td>3</td>';
+        row += '<td>' + files[i].SVGdata.numGroups + '</td>';
 
         row += '</tr>';
 
