@@ -57,15 +57,15 @@ function appendLogToHtml(files) {
 
         console.log(files[i].size);
 
-        row += '<td>' + files[i].size + ' (bytes)</td>';
+        row += '<td style="text-align:center">' + files[i].size + ' (bytes)</td>';
 
-        row += '<td>' + files[i].SVGdata.numRect + '</td>';
+        row += '<td style="text-align:center">' + files[i].SVGdata.numRect + '</td>';
 
-        row += '<td>' + files[i].SVGdata.numCirc + '</td>';
+        row += '<td style="text-align:center">' + files[i].SVGdata.numCirc + '</td>';
 
-        row += '<td>' + files[i].SVGdata.numPaths + '</td>';
+        row += '<td style="text-align:center">' + files[i].SVGdata.numPaths + '</td>';
 
-        row += '<td>' + files[i].SVGdata.numGroups + '</td>';
+        row += '<td style="text-align:center">' + files[i].SVGdata.numGroups + '</td>';
 
         row += '</tr>';
 
