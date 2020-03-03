@@ -81,6 +81,14 @@ app.get('/uploads/:name', function (req, res) {
 
 //******************** Your code goes here ******************** 
 
+function bytesToSize(bytes) {
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB']
+  if (bytes === 0) return 'n/a'
+  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10)
+  if (i === 0) return `${bytes} ${sizes[i]}`
+  return `${(bytes / (1024 ** i)).toFixed(1)} ${sizes[i]}`
+}
+
 app.get('/getFiles', function (req, res) {
   let files = fs.readdirSync('./uploads/');
   console.log('Sending the files...');
@@ -88,10 +96,16 @@ app.get('/getFiles', function (req, res) {
   let listOfFiles = []
   for (let x in files) {
     let fileStats = fs.statSync(__dirname + '/uploads/' + files[x]);
+
+    let string = cLib.SVGtoJSON_Wrapper(__dirname + '/uploads/' + files[x], './parser/test/schemaFiles/svg.xsd');
+    if (string.localeCompare("{}") == 0) {
+      continue;
+    }
+
     listOfFiles.push({
       fileName: files[x],
-      size: fileStats.size,
-      SVGdata: JSON.parse(cLib.SVGtoJSON_Wrapper(__dirname + '/uploads/' + files[x], './parser/test/schemaFiles/svg.xsd')),
+      size: bytesToSize(fileStats.size, 0),
+      SVGdata: JSON.parse(string),
     });
   }
   console.log(listOfFiles)

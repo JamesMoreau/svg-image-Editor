@@ -770,7 +770,6 @@ char* SVGtoJSON(const SVGimage* image) {
 
 char* SVGtoJSON_Wrapper(char* filename, char* schemaFile) {
 	SVGimage* img = createValidSVGimage(filename, schemaFile);
-	//!what do we doo if fails to parse?
 	char* s = SVGtoJSON(img);
 	deleteSVGimage(img);
 	return (s);

@@ -44,8 +44,14 @@ $(document).ready(function () {
 function appendLogToHtml(files) {
     // console.log(files);
     // console.log(files.length);
+    if (files.length == 0) {
+        console.log('No files!')
+        let row = '<tr> <td style="text-align:center">No Files O_o </td></tr>';
+        $('#file_log_table').append(row);
+        return;
+    }
 
-    for (let i = 0; i < files.length; i += 1) { //!dowloadable link
+    for (let i = 0; i < files.length; i += 1) {
         let row = "<tr>";
 
         row += '<td><img src=uploads/' + files[i].fileName + ' border=3 height=150 width=150></td>';
@@ -55,9 +61,9 @@ function appendLogToHtml(files) {
 
         row += '<td style="text-align:center"><a download="' + files[i].fileName + '" href="uploads/' + files[i].fileName + '">' + files[i].fileName + '</a></td>';
 
-        console.log(files[i].size);
+        // console.log(files[i].size);
 
-        row += '<td style="text-align:center">' + files[i].size + ' (bytes)</td>';
+        row += '<td style="text-align:center">' + files[i].size + '</td>';
 
         row += '<td style="text-align:center">' + files[i].SVGdata.numRect + '</td>';
 
