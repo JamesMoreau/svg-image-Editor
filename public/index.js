@@ -48,12 +48,12 @@ function appendLogToHtml(files) {
     for (let i = 0; i < files.length; i += 1) { //!dowloadable link
         let row = "<tr>";
 
-        row += '<td><img src=uploads/' + files[i].fileName + ' border=3 height=100 width=100></td>';
+        row += '<td><img src=uploads/' + files[i].fileName + ' border=3 height=150 width=150></td>';
 
         // console.log(files[i]);
         // console.log(row); 
 
-        row += '<td><a href="uploads/' + files[i].fileName + '">' + files[i].fileName + '</a></td>';
+        row += '<td style="text-align:center"><a download="' + files[i].fileName + '" href="uploads/' + files[i].fileName + '">' + files[i].fileName + '</a></td>';
 
         console.log(files[i].size);
 
