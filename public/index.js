@@ -45,7 +45,7 @@ function appendLogToHtml(files) {
     // console.log(files);
     // console.log(files.length);
 
-    for (let i = 0; i < files.length; i += 1) {
+    for (let i = 0; i < files.length; i += 1) { //!dowloadable link
         let row = "<tr>";
 
         row += '<td><img src=uploads/' + files[i].fileName + ' border=3 height=100 width=100></td>';
