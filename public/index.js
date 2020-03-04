@@ -54,7 +54,7 @@ function appendLogToHtml(files) {
     for (let i = 0; i < files.length; i += 1) {
         let row = "<tr>";
 
-        row += '<td><a download="' + files[i].fileName + '" href="uploads/' + files[i].fileName + '"> <img src=uploads/' + files[i].fileName + ' border="3" height="150" width="150"> </a></td>';
+        row += '<td><a download="' + files[i].fileName + '" href="uploads/' + files[i].fileName + '"> <img src=uploads/' + files[i].fileName + ' border="3" height="100" width="100"> </a></td>';
 
         // console.log(files[i]);
         // console.log(row); 
