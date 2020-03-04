@@ -45,3 +45,9 @@ input[type=submit], button {
 table, th, td {
     border: 1px solid black;
   }
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
