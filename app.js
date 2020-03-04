@@ -96,7 +96,7 @@ app.get('/getFiles', function (req, res) {
 
     listOfFiles.push({
       fileName: files[x],
-      size: Math.round(fileStats.size),
+      size: Math.round(fileStats.size / 1000),
       SVGdata: JSON.parse(string),
     });
   }
