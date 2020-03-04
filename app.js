@@ -80,15 +80,6 @@ app.get('/uploads/:name', function (req, res) {
 });
 
 //******************** Your code goes here ******************** 
-
-function bytesToSize(bytes) {
-  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB']
-  if (bytes === 0) return 'n/a'
-  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10)
-  if (i === 0) return `${bytes} ${sizes[i]}`
-  return `${(bytes / (1024 ** i)).toFixed(1)} ${sizes[i]}`
-}
-
 app.get('/getFiles', function (req, res) {
   let files = fs.readdirSync('./uploads/');
   console.log('Sending the files...');
@@ -105,7 +96,7 @@ app.get('/getFiles', function (req, res) {
 
     listOfFiles.push({
       fileName: files[x],
-      size: bytesToSize(fileStats.size, 0),
+      size: Math.round(fileStats.size),
       SVGdata: JSON.parse(string),
     });
   }

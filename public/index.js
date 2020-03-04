@@ -63,7 +63,7 @@ function appendLogToHtml(files) {
 
         // console.log(files[i].size);
 
-        row += '<td style="text-align:center">' + files[i].size + '</td>';
+        row += '<td style="text-align:center">' + files[i].size + 'KB</td>';
 
         row += '<td style="text-align:center">' + files[i].SVGdata.numRect + '</td>';
 
