@@ -99,6 +99,7 @@ app.get('/getFiles', function (req, res) {
 
     let string = cLib.SVGtoJSON_Wrapper(__dirname + '/uploads/' + files[x], './parser/test/schemaFiles/svg.xsd');
     if (string.localeCompare("{}") == 0) {
+      console.log('failed to validate svg image ' + files[x]);
       continue;
     }
 

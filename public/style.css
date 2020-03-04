@@ -42,3 +42,6 @@ input[type=submit], button {
         width: 100% !important;
     }
 }
+table, th, td {
+    border: 1px solid black;
+  }
