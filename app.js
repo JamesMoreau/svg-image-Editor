@@ -3,10 +3,15 @@
 // C library API
 const ffi = require('ffi-napi');
 
-let cLib = ffi.Library('./parser/bin/libsvgparse.so', {
+var cLib = ffi.Library('./parser/bin/libsvgparse.so', {
   //"functionName": ["returnType", ["param1", "param2"]],
   //"writeSVGimage": ["bool", ["string", "string"]],
   "SVGtoJSON_Wrapper": ["string", ["string", "string"]],
+  "SVG_get_title_Wrapper": ["string", ["string", "string"]],
+  "SVG_get_title_Wrapper": ["string", ["string", "string"]],
+  "SVG_get_description_Wrapper": ["string", ["string", "string"]],
+  "rectListToJSON_Wrapper": ["string", ["string", "string"]],
+  "circListToJSON_Wrapper": ["string", ["string", "string"]],
 });
 
 // cLib.functionName()
@@ -84,7 +89,7 @@ app.get('/getFiles', function (req, res) {
   let files = fs.readdirSync('./uploads/');
   console.log('Sending the files...');
   console.log(files);
-  let listOfFiles = []
+  let listOfFiles = [];
   for (let x in files) {
     let fileStats = fs.statSync(__dirname + '/uploads/' + files[x]);
 
@@ -105,6 +110,42 @@ app.get('/getFiles', function (req, res) {
 });
 
 //!Need a function that retrives a specific file and desired data (ie. title, description, various components...)
+app.get('/getFileData', function (req, res) {
+  let fileName = req.query.fileName;
+  console.log(fileName)
+  let title_string = cLib.SVG_get_title_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd');
+  if (title_string.localeCompare("") == 0) {
+    console.log('No title for file.');
+  } else {
+    console.log(title_string);
+  }
+
+  let desc_string = cLib.SVG_get_description_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd');
+  if (desc_string.localeCompare("") == 0) {
+    console.log("No description for file.");
+  } else {
+    console.log(desc_string);
+  }
+
+  let rect_list_string = cLib.rectListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd');
+  if (rect_list_string.localeCompare("[]") == 0) {
+    console.log("SVG has no rectangles.");
+  } else {
+    console.log(rect_list_string);
+  }
+  
+  let circ_list_string = cLib.circListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd');
+  if (circ_list_string.localeCompare("[]") == 0) {
+    console.log("SVG has no circles.");
+  } else {
+    console.log(circ_list_string);
+  }
+
+  res.send({
+    foo: fileName
+  });
+});
+
 
 //Sample endpoint
 app.get('/someendpoint', function (req, res) {

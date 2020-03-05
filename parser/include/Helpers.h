@@ -49,5 +49,10 @@ bool validate_xml(xmlDoc* doc, char* schema);
 
 /* library wrappers */
 char* SVGtoJSON_Wrapper(char* filename, char* schemaFile);
+char* SVG_get_title_Wrapper(char* filename, char* schemaFile);
+char* SVG_get_description_Wrapper(char* filename, char* schemaFile);
+char* groupListToJSON_Wrapper(char* filename, char* schemaFile);
+char* rectListToJSON_Wrapper(char* filename, char* schemaFile);
+char* circListToJSON_Wrapper(char* filename, char* schemaFile);
 
 #endif

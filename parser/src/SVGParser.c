@@ -775,6 +775,43 @@ char* SVGtoJSON_Wrapper(char* filename, char* schemaFile) {
 	return (s);
 }
 
+char* groupListToJSON_Wrapper(char* filename, char* schemaFile) {
+	SVGimage* img = createValidSVGimage(filename, schemaFile);
+	char* s = groupListToJSON(img->groups);
+	deleteSVGimage(img);
+	return (s);
+}
+
+char* rectListToJSON_Wrapper(char* filename, char* schemaFile) {
+	SVGimage* img = createValidSVGimage(filename, schemaFile);
+	char* s = rectListToJSON(img->rectangles);
+	deleteSVGimage(img);
+	return (s);
+}
+
+char* circListToJSON_Wrapper(char* filename, char* schemaFile) {
+	SVGimage* img = createValidSVGimage(filename, schemaFile);
+	char* s = circListToJSON(img->circles);
+	deleteSVGimage(img);
+	return (s);
+}
+
+char* SVG_get_title_Wrapper(char* filename, char* schemaFile) {
+	SVGimage* img = createValidSVGimage(filename, schemaFile);
+	if (!img) return (NULL);
+	char* s = strdup(img->title);
+	deleteSVGimage(img);
+	return(s);
+}
+
+char* SVG_get_description_Wrapper(char* filename, char* schemaFile) {
+	SVGimage* img = createValidSVGimage(filename, schemaFile);
+	if (!img) return (NULL);
+	char* s = strdup(img->description);
+	deleteSVGimage(img);
+	return(s);
+}
+
 SVGimage* JSONtoSVG(const char* svgString) {
 	if (!svgString) return (NULL);
 	char* s = strdup(svgString);
