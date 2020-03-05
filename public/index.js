@@ -79,6 +79,12 @@ function append_html_to_file_log(files) {
     }
 }
 
+
+//! on selection of dropdown item, js needs to replace data in view.
+function fill_svg_image_data(value) {
+    console.log("new dropdown image selected: " + value);
+}
+
 function append_html_to_image_dropdown(files) {
     if (files.length == 0) {
         console.log("no files for dropdown!");

@@ -51,7 +51,7 @@
     <h3>SVG View Panel</h3>
     <label for="cars">Choose an image:</label>
 
-    <select id="image_dropdown"></select>
+    <select onchange="fill_svg_image_data(this.value)" id="image_dropdown"></select>
 
     <div style="border:5px double black;">
         <img src="uploads/NewTux.svg" width='800' align="middle">
