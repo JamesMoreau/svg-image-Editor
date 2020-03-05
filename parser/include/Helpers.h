@@ -54,5 +54,7 @@ char* SVG_get_description_Wrapper(char* filename, char* schemaFile);
 char* groupListToJSON_Wrapper(char* filename, char* schemaFile);
 char* rectListToJSON_Wrapper(char* filename, char* schemaFile);
 char* circListToJSON_Wrapper(char* filename, char* schemaFile);
+char* pathListToJSON_Wrapper(char* filename, char* schemaFile);
+char* attrListToJSON_Wrapper(char* filename, char* schemaFile);
 
 #endif

@@ -12,6 +12,9 @@ var cLib = ffi.Library('./parser/bin/libsvgparse.so', {
   "SVG_get_description_Wrapper": ["string", ["string", "string"]],
   "rectListToJSON_Wrapper": ["string", ["string", "string"]],
   "circListToJSON_Wrapper": ["string", ["string", "string"]],
+  "pathListToJSON_Wrapper": ["string", ["string", "string"]],
+  "groupListToJSON_Wrapper": ["string", ["string", "string"]],
+  "attrListToJSON_Wrapper": ["string", ["string", "string"]],
 });
 
 // cLib.functionName()
@@ -109,10 +112,10 @@ app.get('/getFiles', function (req, res) {
   res.send(listOfFiles);
 });
 
-//!Need a function that retrives a specific file and desired data (ie. title, description, various components...)
 app.get('/getFileData', function (req, res) {
   let fileName = req.query.fileName;
   console.log(fileName)
+
   let title_string = cLib.SVG_get_title_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd');
   if (title_string.localeCompare("") == 0) {
     console.log('No title for file.');
@@ -141,11 +144,38 @@ app.get('/getFileData', function (req, res) {
     console.log(circ_list_string);
   }
 
+  let path_list_string = cLib.pathListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd');
+  if (path_list_string.localeCompare("[]") == 0) {
+    console.log("SVG has no paths.");
+  } else {
+    console.log(path_list_string);
+  }
+
+  let attr_list_string = cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd');
+  if (attr_list_string.localeCompare("[]") == 0) {
+    console.log("SVG has no attribute.");
+  } else {
+    console.log(attr_list_string);
+  }
+
+  let group_list_string = cLib.groupListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd');
+  if (group_list_string.localeCompare("[]") == 0) {
+    console.log("SVG has no attribute.");
+  } else {
+    console.log(group_list_string);
+  }
+
   res.send({
-    foo: fileName
+    fileName: fileName,
+    title: title_string,
+    description: desc_string,
+    rectList: JSON.parse(rect_list_string),
+    circList: JSON.parse(circ_list_string),
+    pathList: JSON.parse(path_list_string),
+    groupList:JSON.parse(group_list_string),
+    attrList: JSON.parse(attr_list_string),
   });
 });
-
 
 //Sample endpoint
 app.get('/someendpoint', function (req, res) {

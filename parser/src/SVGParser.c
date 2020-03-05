@@ -775,13 +775,6 @@ char* SVGtoJSON_Wrapper(char* filename, char* schemaFile) {
 	return (s);
 }
 
-char* groupListToJSON_Wrapper(char* filename, char* schemaFile) {
-	SVGimage* img = createValidSVGimage(filename, schemaFile);
-	char* s = groupListToJSON(img->groups);
-	deleteSVGimage(img);
-	return (s);
-}
-
 char* rectListToJSON_Wrapper(char* filename, char* schemaFile) {
 	SVGimage* img = createValidSVGimage(filename, schemaFile);
 	char* s = rectListToJSON(img->rectangles);
@@ -792,6 +785,27 @@ char* rectListToJSON_Wrapper(char* filename, char* schemaFile) {
 char* circListToJSON_Wrapper(char* filename, char* schemaFile) {
 	SVGimage* img = createValidSVGimage(filename, schemaFile);
 	char* s = circListToJSON(img->circles);
+	deleteSVGimage(img);
+	return (s);
+}
+
+char* pathListToJSON_Wrapper(char* filename, char* schemaFile) {
+	SVGimage* img = createValidSVGimage(filename, schemaFile);
+	char* s = pathListToJSON(img->paths);
+	deleteSVGimage(img);
+	return (s);
+}
+
+char* groupListToJSON_Wrapper(char* filename, char* schemaFile) {
+	SVGimage* img = createValidSVGimage(filename, schemaFile);
+	char* s = groupListToJSON(img->groups);
+	deleteSVGimage(img);
+	return (s);
+}
+
+char* attrListToJSON_Wrapper(char* filename, char* schemaFile) {
+	SVGimage* img = createValidSVGimage(filename, schemaFile);
+	char* s = attrListToJSON(img->otherAttributes);
 	deleteSVGimage(img);
 	return (s);
 }

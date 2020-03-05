@@ -79,7 +79,6 @@ function append_html_to_file_log(files) {
     }
 }
 
-
 //! on selection of dropdown item, js needs to replace data in view.
 function fill_svg_image_data(value) {
     console.log("new dropdown image selected: " + value);
@@ -91,7 +90,15 @@ function fill_svg_image_data(value) {
             fileName: value,
         },
         success: function (file_data) {
-
+            console.log("received " + file_data.fileName);
+            console.log(file_data.fileName);
+            console.log(file_data.title);
+            console.log(file_data.description);
+            console.log(file_data.rectList);
+            console.log(file_data.circList);
+            console.log(file_data.pathList);
+            console.log(file_data.groupList);
+            console.log(file_data.attrList);
         },
         fail: function (error) {
             $('#blah').html('Could not request file data' + filename + 'from server');
