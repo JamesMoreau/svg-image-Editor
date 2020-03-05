@@ -79,7 +79,6 @@ function append_html_to_file_log(files) {
     }
 }
 
-//! on selection of dropdown item, js needs to replace data in view.
 function fill_svg_image_data(value) {
     console.log("new dropdown image selected: " + value);
     $.ajax({
@@ -99,6 +98,8 @@ function fill_svg_image_data(value) {
             console.log(file_data.pathList);
             console.log(file_data.groupList);
             console.log(file_data.attrList);
+
+            append_svg_data_to_view(file_data);
         },
         fail: function (error) {
             $('#blah').html('Could not request file data' + filename + 'from server');
@@ -107,11 +108,27 @@ function fill_svg_image_data(value) {
     });
 }
 
+function append_svg_data_to_view(file_data) {
+    if (file_data.title.localeCompare("") == 0) {
+        $('#title_cell').text("No title");
+    } else {
+        $('#title_cell').text(file_data.title);
+    }
+
+    if (file_data.description.localeCompare("") == 0) {
+        $('#desc_cell').text("No Description");
+    } else {
+        $('#desc_cell').text(file_data.description);
+    }
+
+    //append rectangles
+    //append circles
+    //...
+}
+
 function append_html_to_image_dropdown(files) {
     if (files.length == 0) {
         console.log("no files for dropdown!");
-        // let option = '<option value="">invalid</option>';
-        // $('#image_dropdown').append(option);
         return;
     }
 

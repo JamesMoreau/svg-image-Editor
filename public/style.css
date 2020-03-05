@@ -6,6 +6,10 @@ html {
     font-size: 16px;
     background-color: #FFFFFF;
 }
+#title_cell, #desc_cell {
+    padding-right: 10px !important;
+    padding-left: 10px !important;
+}
 body {
     height: 100%;
     min-height: 100%;
