@@ -1,7 +1,7 @@
 // Put all onload AJAX calls here, and event listeners
 $(document).ready(function () {
     // On page-load AJAX Example
-    add_elements_to_file_log_table();
+    add_files_to_html();
 
     $.ajax({
         type: 'get',            //Request type
@@ -41,7 +41,7 @@ $(document).ready(function () {
     });
 });
 
-function appendLogToHtml(files) {
+function append_html_to_file_log(files) {
     // console.log(files);
     // console.log(files.length);
     if (files.length == 0) {
@@ -79,13 +79,28 @@ function appendLogToHtml(files) {
     }
 }
 
-function add_elements_to_file_log_table() {
+function append_html_to_image_dropdown(files) {
+    if (files.length == 0) {
+        console.log("no files for dropdown!");
+        // let option = '<option value="">invalid</option>';
+        // $('#image_dropdown').append(option);
+        return;
+    }
+
+    for (let i = 0; i < files.length; i+=1) {
+        let option = '<option>' + files[i].fileName +'</option>'
+        $('#image_dropdown').append(option);
+    }
+}
+
+function add_files_to_html() {
     $.ajax({
         type: 'get',
         dataType: 'json',
         url: '/getFiles',
         success: function (directory) {
-            appendLogToHtml(directory);
+            append_html_to_file_log(directory);
+            append_html_to_image_dropdown(directory);
         },
         fail: function (error) {
             $('#blah').html("On page load, received error from server");

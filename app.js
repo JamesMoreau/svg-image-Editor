@@ -104,6 +104,8 @@ app.get('/getFiles', function (req, res) {
   res.send(listOfFiles);
 });
 
+//!Need a function that retrives a specific file and desired data (ie. title, description, various components...)
+
 //Sample endpoint
 app.get('/someendpoint', function (req, res) {
   let retStr = req.query.name1 + " " + req.query.name2;
