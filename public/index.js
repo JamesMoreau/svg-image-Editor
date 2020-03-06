@@ -80,7 +80,12 @@ function append_html_to_file_log(files) {
 }
 
 function fill_svg_image_data(value) {
+    if (value == '') {
+        console.log('Not a real selection!');
+        return;
+    }
     console.log("new dropdown image selected: " + value);
+
     $.ajax({
         type: 'get',
         dataType: 'json',
@@ -122,6 +127,35 @@ function append_svg_data_to_view(file_data) {
     }
 
     //append rectangles
+    
+    // console.log('Rects!!:' + file_data.rectList.length);
+
+    if (file_data.rectList.length > 0) {
+        console.log('there are rectangles!');
+        for (x in file_data.rectList) {
+            console.log(file_data.rectList[x]);
+            
+            let row = '<tr>';
+            
+            row += '<td style="text-align:center">Rectangle '+ x +'</td>';
+            
+            row += '<td style="text-align:center">';
+            row += 'Upper left corner: x = ' + file_data.rectList[x].x + file_data.rectList[x].units + ', y = ' + file_data.rectList[x].y + file_data.rectList[x].units + ', ';
+            row += 'Width: ' + file_data.rectList[x].w + file_data.rectList[x].units + ', Height: ' + file_data.rectList[x].h + file_data.rectList[x].units;
+            row += '</td>';
+            
+            row += '<td style="text-align:center">';
+                    row += file_data.rectList[x].numAttr;
+            row += '</td>';
+
+            row += '</tr>';
+
+            console.log(row);
+            $('#svg_image_component_table').append(row);
+        }
+    } else {
+        console.log('there are no rectangles!');
+    }
     //append circles
     //...
 }
