@@ -172,6 +172,7 @@ function replace_rectList_in_view(file_data) {
 
 function replace_svg_image_in_view(file_data) {
     console.log('replacing image...');
+    $('#svg_view_image').attr("src", 'uploads/' + file_data.fileName);
 }
 
 function replace_circList_in_view(file_data) {
@@ -253,7 +254,7 @@ function replace_groupList_in_view(file_data) {
             $('#svg_image_component_table').append(row);
         }
     } else {
-        console.log('there are no gruops.')
+        console.log('there are no groups.')
     }
 }
 

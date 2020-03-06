@@ -63,7 +63,6 @@ app.post('/upload', function (req, res) {
 
   let uploadFile = req.files.uploadFile;
   console.log("Files: " + req.files);
-  fs
 
   // Use the mv() c to place the file somewhere on your server
   uploadFile.mv('uploads/' + uploadFile.name, function (err) {
