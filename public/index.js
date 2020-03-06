@@ -114,6 +114,9 @@ function fill_svg_image_data(value) {
 }
 
 function append_svg_data_to_view(file_data) {
+    //Clear the current table
+    $("#svg_image_component_table tr").remove()
+
     if (file_data.title.localeCompare("") == 0) {
         $('#title_cell').text("No title");
     } else {
@@ -126,18 +129,23 @@ function append_svg_data_to_view(file_data) {
         $('#desc_cell').text(file_data.description);
     }
 
-    //append rectangles
+    append_rectList_to_view(file_data);
     
-    // console.log('Rects!!:' + file_data.rectList.length);
+    append_circList_to_view(file_data);
 
+    append_pathList_to_view(file_data);
+}
+
+function append_rectList_to_view(file_data) {
     if (file_data.rectList.length > 0) {
         console.log('there are rectangles!');
         for (x in file_data.rectList) {
             console.log(file_data.rectList[x]);
             
             let row = '<tr>';
-            
-            row += '<td style="text-align:center">Rectangle '+ x +'</td>';
+            let index = parseInt(x) + 1;
+
+            row += '<td style="text-align:center">Rectangle '+ index +'</td>';
             
             row += '<td style="text-align:center">';
                 row += 'Upper left corner: x = ' + file_data.rectList[x].x + file_data.rectList[x].units + ', y = ' + file_data.rectList[x].y + file_data.rectList[x].units + ', ';
@@ -145,19 +153,48 @@ function append_svg_data_to_view(file_data) {
             row += '</td>';
             
             row += '<td style="text-align:center">';
-                    row += file_data.rectList[x].numAttr;
+                row += file_data.rectList[x].numAttr;
             row += '</td>';
-
+            
             row += '</tr>';
-
+            
             console.log(row);
             $('#svg_image_component_table').append(row);
         }
     } else {
-        console.log('there are no rectangles!');
+        console.log('there are no rectangles.');
     }
-    //append circles
-    //...
+}
+
+function append_circList_to_view(file_data) {
+    if (file_data.circList.length > 0) {
+        console.log('there are circles!');
+        console.log(file_data.circList);
+        for (x in file_data.circList) {        
+            let row = '<tr>';
+            let index = parseInt(x) + 1;
+            
+            row += '<td style="text-align:center">Circle '+ index +'</td>';
+
+            row += '<td style="text-align:center">';
+                row += 'Centre: x = ' + file_data.circList[x].cx + file_data.circList[x].units + ', y = ' + file_data.circList[x].cy + file_data.circList[x].units + ', radius = ' + file_data.circList[x].r + file_data.circList[x].units
+            row += '</td>';
+
+            row += '<td style="text-align:center">';
+                row += file_data.circList[x].numAttr;
+            row += '</td>';
+
+            row += '</tr>';
+            console.log(row);
+            $('#svg_image_component_table').append(row);
+        }
+    } else {
+        console.log("there are no circles.");
+    }
+}
+
+function append_pathList_to_view(file_data) {
+
 }
 
 function append_html_to_image_dropdown(files) {
