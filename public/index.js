@@ -54,24 +54,24 @@ function append_html_to_file_log(files) {
     for (let i = 0; i < files.length; i += 1) {
         let row = "<tr>";
 
-        row += '<td><a download="' + files[i].fileName + '" href="uploads/' + files[i].fileName + '"> <img src=uploads/' + files[i].fileName + ' border="3" height="100" width="100"> </a></td>';
+            row += '<td><a download="' + files[i].fileName + '" href="uploads/' + files[i].fileName + '"> <img src=uploads/' + files[i].fileName + ' border="3" height="100" width="100"> </a></td>';
 
-        // console.log(files[i]);
-        // console.log(row); 
+            // console.log(files[i]);
+            // console.log(row); 
 
-        row += '<td style="text-align:center"><a download="' + files[i].fileName + '" href="uploads/' + files[i].fileName + '">' + files[i].fileName + '</a></td>';
+            row += '<td style="text-align:center"><a download="' + files[i].fileName + '" href="uploads/' + files[i].fileName + '">' + files[i].fileName + '</a></td>';
 
-        // console.log(files[i].size);
+            // console.log(files[i].size);
 
-        row += '<td style="text-align:center">' + files[i].size + ' KB</td>';
+            row += '<td style="text-align:center">' + files[i].size + ' KB</td>';
 
-        row += '<td style="text-align:center">' + files[i].SVGdata.numRect + '</td>';
+            row += '<td style="text-align:center">' + files[i].SVGdata.numRect + '</td>';
 
-        row += '<td style="text-align:center">' + files[i].SVGdata.numCirc + '</td>';
+            row += '<td style="text-align:center">' + files[i].SVGdata.numCirc + '</td>';
 
-        row += '<td style="text-align:center">' + files[i].SVGdata.numPaths + '</td>';
+            row += '<td style="text-align:center">' + files[i].SVGdata.numPaths + '</td>';
 
-        row += '<td style="text-align:center">' + files[i].SVGdata.numGroups + '</td>';
+            row += '<td style="text-align:center">' + files[i].SVGdata.numGroups + '</td>';
 
         row += '</tr>';
 
@@ -134,6 +134,8 @@ function append_svg_data_to_view(file_data) {
     append_circList_to_view(file_data);
 
     append_pathList_to_view(file_data);
+
+    append_groupList_to_view(file_data);
 }
 
 function append_rectList_to_view(file_data) {
@@ -143,19 +145,19 @@ function append_rectList_to_view(file_data) {
             console.log(file_data.rectList[x]);
             
             let row = '<tr>';
-            let index = parseInt(x) + 1;
-
-            row += '<td style="text-align:center">Rectangle '+ index +'</td>';
             
-            row += '<td style="text-align:center">';
-                row += 'Upper left corner: x = ' + file_data.rectList[x].x + file_data.rectList[x].units + ', y = ' + file_data.rectList[x].y + file_data.rectList[x].units + ', ';
-                row += 'Width: ' + file_data.rectList[x].w + file_data.rectList[x].units + ', Height: ' + file_data.rectList[x].h + file_data.rectList[x].units;
-            row += '</td>';
-            
-            row += '<td style="text-align:center">';
-                row += file_data.rectList[x].numAttr;
-            row += '</td>';
-            
+                let index = parseInt(x) + 1;
+                row += '<td>Rectangle '+ index +'</td>';
+                
+                row += '<td style="text-align:center">';
+                    row += 'Upper left corner: x = ' + file_data.rectList[x].x + file_data.rectList[x].units + ', y = ' + file_data.rectList[x].y + file_data.rectList[x].units + ', ';
+                    row += 'Width: ' + file_data.rectList[x].w + file_data.rectList[x].units + ', Height: ' + file_data.rectList[x].h + file_data.rectList[x].units;
+                row += '</td>';
+                
+                row += '<td>';
+                    row += file_data.rectList[x].numAttr;
+                row += '</td>';
+                
             row += '</tr>';
             
             console.log(row);
@@ -172,17 +174,17 @@ function append_circList_to_view(file_data) {
         console.log(file_data.circList);
         for (x in file_data.circList) {        
             let row = '<tr>';
-            let index = parseInt(x) + 1;
             
-            row += '<td style="text-align:center">Circle '+ index +'</td>';
+                let index = parseInt(x) + 1;
+                row += '<td>Circle '+ index +'</td>';
 
-            row += '<td style="text-align:center">';
-                row += 'Centre: x = ' + file_data.circList[x].cx + file_data.circList[x].units + ', y = ' + file_data.circList[x].cy + file_data.circList[x].units + ', radius = ' + file_data.circList[x].r + file_data.circList[x].units
-            row += '</td>';
+                row += '<td>';
+                    row += 'Centre: x = ' + file_data.circList[x].cx + file_data.circList[x].units + ', y = ' + file_data.circList[x].cy + file_data.circList[x].units + ', radius = ' + file_data.circList[x].r + file_data.circList[x].units
+                row += '</td>';
 
-            row += '<td style="text-align:center">';
-                row += file_data.circList[x].numAttr;
-            row += '</td>';
+                row += '<td>';
+                    row += file_data.circList[x].numAttr;
+                row += '</td>';
 
             row += '</tr>';
             console.log(row);
@@ -194,7 +196,35 @@ function append_circList_to_view(file_data) {
 }
 
 function append_pathList_to_view(file_data) {
+    if (file_data.pathList.length > 0) {
+        console.log('there are paths!');
+        console.log(file_data.pathList);
+        for (x in file_data.pathList) {
+            let row = '<tr>';
 
+                let index = parseInt(x) + 1;
+                row += '<td>Path ' + index + '</td>'
+
+                row += '<td>';
+                    row += 'path data = ' + file_data.pathList[x].d;
+                row += '</td>';
+                
+                row += '<td>';
+                    row += file_data.pathList[x].numAttr;
+                row += '</td>';
+
+            row += '</tr>'
+
+            console.log(row);
+            $('#svg_image_component_table').append(row);
+        }
+    } else {
+        console.log('there are no paths.');
+    }
+}
+
+function append_groupList_to_view(file_data) {
+    
 }
 
 function append_html_to_image_dropdown(files) {
