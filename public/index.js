@@ -56,12 +56,7 @@ function append_html_to_file_log(files) {
 
             row += '<td><a download="' + files[i].fileName + '" href="uploads/' + files[i].fileName + '"> <img src=uploads/' + files[i].fileName + ' border="3" height="100" width="100"> </a></td>';
 
-            // console.log(files[i]);
-            // console.log(row); 
-
             row += '<td style="text-align:center"><a download="' + files[i].fileName + '" href="uploads/' + files[i].fileName + '">' + files[i].fileName + '</a></td>';
-
-            // console.log(files[i].size);
 
             row += '<td style="text-align:center">' + files[i].size + ' KB</td>';
 
