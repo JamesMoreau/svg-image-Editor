@@ -140,8 +140,8 @@ function append_svg_data_to_view(file_data) {
             row += '<td style="text-align:center">Rectangle '+ x +'</td>';
             
             row += '<td style="text-align:center">';
-            row += 'Upper left corner: x = ' + file_data.rectList[x].x + file_data.rectList[x].units + ', y = ' + file_data.rectList[x].y + file_data.rectList[x].units + ', ';
-            row += 'Width: ' + file_data.rectList[x].w + file_data.rectList[x].units + ', Height: ' + file_data.rectList[x].h + file_data.rectList[x].units;
+                row += 'Upper left corner: x = ' + file_data.rectList[x].x + file_data.rectList[x].units + ', y = ' + file_data.rectList[x].y + file_data.rectList[x].units + ', ';
+                row += 'Width: ' + file_data.rectList[x].w + file_data.rectList[x].units + ', Height: ' + file_data.rectList[x].h + file_data.rectList[x].units;
             row += '</td>';
             
             row += '<td style="text-align:center">';
