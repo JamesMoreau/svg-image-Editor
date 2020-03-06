@@ -135,6 +135,11 @@ function replace_svg_data_in_view(file_data) {
     replace_groupList_in_view(file_data);
 }
 
+function replace_svg_image_in_view(file_data) {
+    console.log('replacing image...');
+    $('#svg_view_image').attr("src", 'uploads/' + file_data.fileName);
+}
+
 function replace_rectList_in_view(file_data) {
     if (file_data.rectList.length > 0) {
         console.log('there are rectangles!');
@@ -163,11 +168,6 @@ function replace_rectList_in_view(file_data) {
     } else {
         console.log('there are no rectangles.');
     }
-}
-
-function replace_svg_image_in_view(file_data) {
-    console.log('replacing image...');
-    $('#svg_view_image').attr("src", 'uploads/' + file_data.fileName);
 }
 
 function replace_circList_in_view(file_data) {
