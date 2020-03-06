@@ -104,7 +104,7 @@ function fill_svg_image_data(value) {
             console.log(file_data.groupList);
             console.log(file_data.attrList);
 
-            append_svg_data_to_view(file_data);
+            replace_svg_data_in_view(file_data);
         },
         fail: function (error) {
             $('#blah').html('Could not request file data' + filename + 'from server');
@@ -113,7 +113,7 @@ function fill_svg_image_data(value) {
     });
 }
 
-function append_svg_data_to_view(file_data) {
+function replace_svg_data_in_view(file_data) {
     //Clear the current table
     $("#svg_image_component_table tr").remove()
 
@@ -129,16 +129,18 @@ function append_svg_data_to_view(file_data) {
         $('#desc_cell').text(file_data.description);
     }
 
-    append_rectList_to_view(file_data);
+    replace_svg_image_in_view(file_data);
+
+    replace_rectList_in_view(file_data);
     
-    append_circList_to_view(file_data);
+    replace_circList_in_view(file_data);
 
-    append_pathList_to_view(file_data);
+    replace_pathList_in_view(file_data);
 
-    append_groupList_to_view(file_data);
+    replace_groupList_in_view(file_data);
 }
 
-function append_rectList_to_view(file_data) {
+function replace_rectList_in_view(file_data) {
     if (file_data.rectList.length > 0) {
         console.log('there are rectangles!');
         for (x in file_data.rectList) {
@@ -168,7 +170,11 @@ function append_rectList_to_view(file_data) {
     }
 }
 
-function append_circList_to_view(file_data) {
+function replace_svg_image_in_view(file_data) {
+    console.log('replacing image...');
+}
+
+function replace_circList_in_view(file_data) {
     if (file_data.circList.length > 0) {
         console.log('there are circles!');
         console.log(file_data.circList);
@@ -195,7 +201,7 @@ function append_circList_to_view(file_data) {
     }
 }
 
-function append_pathList_to_view(file_data) {
+function replace_pathList_in_view(file_data) {
     if (file_data.pathList.length > 0) {
         console.log('there are paths!');
         console.log(file_data.pathList);
@@ -223,8 +229,32 @@ function append_pathList_to_view(file_data) {
     }
 }
 
-function append_groupList_to_view(file_data) {
-    
+function replace_groupList_in_view(file_data) {
+    if (file_data.groupList.length > 0) {
+        console.log('there are groups!');
+        console.log(file_data.groupList);
+        for (x in file_data.groupList) {
+            let row = '<tr>';
+
+                let index = parseInt(x) + 1;
+                row += '<td>Group ' + index + '</td>';
+
+                row += '<td>';
+                    row += file_data.groupList[x].children + ' child elements';
+                row += '</td>';
+                
+                row += '<td>';
+                    row += file_data.groupList[x].numAttr;
+                row += '</td>';
+
+            row += '</tr>';
+
+            console.log(row);
+            $('#svg_image_component_table').append(row);
+        }
+    } else {
+        console.log('there are no gruops.')
+    }
 }
 
 function append_html_to_image_dropdown(files) {
