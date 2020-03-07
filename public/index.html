@@ -18,24 +18,23 @@
 </head>
 <body>     
     <h3>File Log Panel</h3>
-    <div style="height:500px; overflow:auto; border:5px double black;">
+    <div style="height:635px; overflow:auto; border:5px double black;">
         <table id = "file_log_table" style="width:100%" rules="all">
             <thead>
                 <tr>
-                    <th style="text-align:center">Image (click to download)</th>
-                    <th style="text-align:center">File name (click to download)</th>
-                    <th style="text-align:center">File Size</th>
-                    <th style="text-align:center">Number of rectangles</th>
-                    <th style="text-align:center">Number of circles</th>
-                    <th style="text-align:center">Number of paths</th>
-                    <th style="text-align:center">Number of groups</th>
+                    <th>Image (click to download)</th>
+                    <th>File name (click to download)</th>
+                    <th>File Size</th>
+                    <th>Number of rectangles</th>
+                    <th>Number of circles</th>
+                    <th>Number of paths</th>
+                    <th>Number of groups</th>
                 </tr>
             </thead>
             <tbody>
             </tbody>
         </table>
     </div>
-
 
     <!-- <form enctype="multipart/form-data" action="/upload/image" method="post">
         <input id="image-file" type="file" />
@@ -71,28 +70,20 @@
             </tr>
         </table>
 
-        <table style="width:100%" rules="all">
-            <col width="15%">
-            <col width="60%">
-            <col width="25%">
-        
-            <th style="text-align:center">Component</th>
-            <th style="text-align:center">Summary</th>
-            <th style="text-align:center">Other Attributes</th>
+        <div id="component_table_div" style="overflow-y:auto">
+            <table  style="width:100%;overflow:auto;" rules="all">
+                <col width="15%">
+                <col width="60%">
+                <col width="25%">
+            
+                <th style="text-align:center">Component</th>
+                <th style="text-align:center">Summary</th>
+                <th style="text-align:center">Other Attributes</th>
 
-            <tbody id = "svg_image_component_table">
-                <tr>
-                    <td style="text-align:center">Path 1</td>
-                    <td style="text-align:center">path data = M200,300 L400,50 L600,300 L800,550 L1000,300</td>
-                    <td style="text-align:center">3</td>
-                </tr>
-                <tr>
-                    <td style="text-align:center">Group 1</td>
-                    <td style="text-align:center">2 child elements</td>
-                    <td style="text-align:center">1</td>
-                </tr>
-            </tbody>
-        </table>
+                <tbody id = "svg_image_component_table">
+                </tbody>
+            </table>
+        </div>
 
     </div>
 
@@ -113,10 +104,3 @@
     <script src="/index.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-

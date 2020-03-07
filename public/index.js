@@ -42,8 +42,6 @@ $(document).ready(function () {
 });
 
 function append_html_to_file_log(files) {
-    // console.log(files);
-    // console.log(files.length);
     if (files.length == 0) {
         console.log('No files!')
         let row = '<tr> <td style="text-align:center">No Files O_o </td></tr>';
@@ -102,7 +100,7 @@ function fill_svg_image_data(value) {
             replace_svg_data_in_view(file_data);
         },
         fail: function (error) {
-            $('#blah').html('Could not request file data' + filename + 'from server');
+            $('#blah').html('Could not request file data' + fileName + 'from server');
             console.log(error);
         }
     });
@@ -110,7 +108,10 @@ function fill_svg_image_data(value) {
 
 function replace_svg_data_in_view(file_data) {
     //Clear the current table
-    $("#svg_image_component_table tr").remove()
+    $("#svg_image_component_table tr").remove();
+    console.log("here!!!!");
+    $("#component_table_div").attr("style", 'height:300px; overflow:auto;')
+
 
     if (file_data.title.localeCompare("") == 0) {
         $('#title_cell').text("No title");
