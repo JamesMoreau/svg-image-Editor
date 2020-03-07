@@ -109,7 +109,6 @@ function fill_svg_image_data(value) {
 function replace_svg_data_in_view(file_data) {
     //Clear the current table
     $("#svg_image_component_table tr").remove();
-    console.log("here!!!!");
     $("#component_table_div").attr("style", 'height:300px; overflow:auto;')
 
 

@@ -31,21 +31,16 @@
                     <th>Number of groups</th>
                 </tr>
             </thead>
-            <tbody>
-            </tbody>
         </table>
     </div>
 
-    <!-- <form enctype="multipart/form-data" action="/upload/image" method="post">
-        <input id="image-file" type="file" />
-    </form> -->
-
-    <div id ="prv" style="height:auto; width:auto; float:left; margin-bottom: 28px;"></div>
-
-   
-       <label > Upload Photo : </label> 
-       <input type="file" id="file" name='file' onChange=" return submitForm();">
-       <input type="hidden" id="filecount" value='0'>
+    <h3>Upload File</h3>
+    <div>
+        <form ref="uploadForm" id="uploadForm" action="/upload" method='post' encType="multipart/form-data">
+            <input type="file" name="uploadFile" id="myFile"><br>
+            <input type="submit">
+        </form>
+    </div>
 
     <h3>SVG View Panel</h3>
     <label for="cars">Choose an image:</label>
