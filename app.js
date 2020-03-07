@@ -15,6 +15,7 @@ var cLib = ffi.Library('./parser/bin/libsvgparse.so', {
   "pathListToJSON_Wrapper": ["string", ["string", "string"]],
   "groupListToJSON_Wrapper": ["string", ["string", "string"]],
   "attrListToJSON_Wrapper": ["string", ["string", "string"]],
+  "attrListToJSON_Wrapper": ["int", ["string", "string"]],
 });
 
 // cLib.functionName()
@@ -64,14 +65,27 @@ app.post('/upload', function (req, res) {
   let uploadFile = req.files.uploadFile;
   console.log("Files: " + req.files);
 
-  //!check if null file.
+  //checks
+
+  if (uploadFile == undefined) {
+    console.log("upload file is undefined!");
+    return res.status(500).send(err);
+  }
+
+  console.log(filename.split('.').pop());
+  if (filename.split('.').pop().localeCompare("svg") != 0) {
+    console.log("upload file was not svg")
+  }
+
+  //!check validity using c lib...
+
   // Use the mv() c to place the file somewhere on your server
   uploadFile.mv('uploads/' + uploadFile.name, function (err) {
     if (err) {
       return res.status(500).send(err);
     }
 
-    res.redirect('/');
+    res.redirect('/'); //?refreshes the page.
   });
 });
 
