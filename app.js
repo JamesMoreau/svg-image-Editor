@@ -195,7 +195,7 @@ app.get('/getFileData', function (req, res) {
     console.log(group_list_string);
   }
 
-  res.send({
+  let file_data = {
     fileName: fileName,
     title: title_string,
     description: desc_string,
@@ -204,7 +204,10 @@ app.get('/getFileData', function (req, res) {
     pathList: JSON.parse(path_list_string),
     groupList:JSON.parse(group_list_string),
     attrList: JSON.parse(attr_list_string),
-  });
+  };
+
+  console.log(file_data);
+  res.send(file_data);
 });
 
 //Sample endpoint
