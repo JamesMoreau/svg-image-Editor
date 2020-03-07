@@ -65,32 +65,40 @@ app.post('/upload', function (req, res) {
   let uploadFile = req.files.uploadFile;
   console.log("Files: " + req.files);
   
-  //checks
-  
   if (uploadFile == undefined) {
     console.log("upload file is undefined!");
     return res.status(400).send('upload file is undefined!');
   }
   // console.log(uploadFile.name.split('.').pop());
 
-  if (!cLib.validateSVGimage_Wrapper(__dirname + '/uploads/' + uploadFile.name, './parser/test/schemaFiles/svg.xsd')) {
-    console.log('svg file was not valid');
-    return res.status(400).send('svg file was not valid.');
-  }
-
   let files = fs.readdirSync('./uploads/');
   for (let x in files) {
     if (uploadFile.name.localeCompare(files[x]) == 0) {
       console.log('upload file: ' + uploadFile.name + ' files[x]' + files[x]);
       console.log('svg was already on the server!');
-      return res.status(400).send('file already uploaded!.');
+      return res.status(400).send('file already uploaded!');
     }
   }  
 
-  // Use the mv() c to place the file somewhere on your server
-  uploadFile.mv('uploads/' + uploadFile.name, function (err) {
+  // Use the mv() to place the file somewhere on your server
+  uploadFile.mv(__dirname + '/uploads/' + uploadFile.name, function (err) {
     if (err) {
       return res.status(500).send(err);
+    }
+    console.log("moved file to " + __dirname + '/uploads/' + uploadFile.name);
+    
+    let val = cLib.validateSVGimage_Wrapper(__dirname + '/uploads/' + uploadFile.name, './parser/test/schemaFiles/svg.xsd');
+    console.log(val);
+    if (val == false) {
+    console.log('file was not valid');
+
+    try {
+      fs.unlinkSync(__dirname + '/uploads/' + uploadFile.name)
+    } catch {
+      console.log("unable to delete file from server. :(");
+    }
+
+    return res.status(400).send('svg file was not valid.');
     }
 
     res.redirect('/');

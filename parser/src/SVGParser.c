@@ -317,7 +317,7 @@ SVGimage* createValidSVGimage(char* fileName, char* schemaFile) {
 	if(!strstr(fileName, ".svg")) return (NULL);
 
 	xmlDoc* doc = xmlReadFile(fileName, NULL, 0);
-	if (!validate_xml(doc, schemaFile)) return (false);
+	if (!validate_xml(doc, schemaFile)) return (NULL);
 
 	SVGimage* img = NULL;
 	img = createSVGimage(fileName);
@@ -827,6 +827,7 @@ char* SVG_get_description_Wrapper(char* filename, char* schemaFile) {
 }
 
 bool validateSVGimage_Wrapper(char* filename, char* schemaFile) {
+	printf("filename: %s, schemaFile: %s\n", filename, schemaFile);
 	SVGimage* img = createValidSVGimage(filename, schemaFile); //this calls validate svg
 	if (!img) return (false);
 	deleteSVGimage(img);
