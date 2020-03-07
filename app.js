@@ -15,6 +15,7 @@ var cLib = ffi.Library('./parser/bin/libsvgparse.so', {
   "pathListToJSON_Wrapper": ["string", ["string", "string"]],
   "groupListToJSON_Wrapper": ["string", ["string", "string"]],
   "attrListToJSON_Wrapper": ["string", ["string", "string"]],
+  "validateSVGimage_Wrapper": ["bool", ["string", "string"]],
 });
 
 // cLib.functionName()
@@ -63,18 +64,28 @@ app.post('/upload', function (req, res) {
 
   let uploadFile = req.files.uploadFile;
   console.log("Files: " + req.files);
-
+  
   //checks
-
+  
   if (uploadFile == undefined) {
     console.log("upload file is undefined!");
-    return res.status(500).send(err);
+    return res.status(400).send('upload file is undefined!');
+  }
+  // console.log(uploadFile.name.split('.').pop());
+
+  if (!cLib.validateSVGimage_Wrapper(__dirname + '/uploads/' + uploadFile.name, './parser/test/schemaFiles/svg.xsd')) {
+    console.log('svg file was not valid');
+    return res.status(400).send('svg file was not valid.');
   }
 
-  console.log(filename.split('.').pop());
-  /* if (filename.split('.').pop().localeCompare("svg") != 0) {
-    console.log("upload file was not svg")
-  } */
+  let files = fs.readdirSync('./uploads/');
+  for (let x in files) {
+    if (uploadFile.name.localeCompare(files[x]) == 0) {
+      console.log('upload file: ' + uploadFile.name + ' files[x]' + files[x]);
+      console.log('svg was already on the server!');
+      return res.status(400).send('file already uploaded!.');
+    }
+  }  
 
   // Use the mv() c to place the file somewhere on your server
   uploadFile.mv('uploads/' + uploadFile.name, function (err) {

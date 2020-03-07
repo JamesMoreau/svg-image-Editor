@@ -827,10 +827,10 @@ char* SVG_get_description_Wrapper(char* filename, char* schemaFile) {
 }
 
 bool validateSVGimage_Wrapper(char* filename, char* schemaFile) {
-	SVGimage* img = createValidSVGimage(filename, schemaFile);
-	bool b = validateSVGimage(img, schemaFile);
+	SVGimage* img = createValidSVGimage(filename, schemaFile); //this calls validate svg
+	if (!img) return (false);
 	deleteSVGimage(img);
-	return (b);
+	return (true);
 }
 
 SVGimage* JSONtoSVG(const char* svgString) {

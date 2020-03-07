@@ -143,7 +143,7 @@ function replace_svg_image_in_view(file_data) {
 function replace_rectList_in_view(file_data) {
     if (file_data.rectList.length > 0) {
         console.log('there are rectangles!');
-        for (x in file_data.rectList) {
+        for (let x in file_data.rectList) {
             console.log(file_data.rectList[x]);
             
             let row = '<tr>';
@@ -174,7 +174,7 @@ function replace_circList_in_view(file_data) {
     if (file_data.circList.length > 0) {
         console.log('there are circles!');
         console.log(file_data.circList);
-        for (x in file_data.circList) {        
+        for (let x in file_data.circList) {        
             let row = '<tr>';
             
                 let index = parseInt(x) + 1;
@@ -201,7 +201,7 @@ function replace_pathList_in_view(file_data) {
     if (file_data.pathList.length > 0) {
         console.log('there are paths!');
         console.log(file_data.pathList);
-        for (x in file_data.pathList) {
+        for (let x in file_data.pathList) {
             let row = '<tr>';
 
                 let index = parseInt(x) + 1;
@@ -229,7 +229,7 @@ function replace_groupList_in_view(file_data) {
     if (file_data.groupList.length > 0) {
         console.log('there are groups!');
         console.log(file_data.groupList);
-        for (x in file_data.groupList) {
+        for (let x in file_data.groupList) {
             let row = '<tr>';
 
                 let index = parseInt(x) + 1;
