@@ -241,5 +241,10 @@ app.get('/send_edit', function (req, res) {
   });
 });
 
+app.get('/create_image', function (req, res) {
+  console.log("request for making new image received.");
+
+});
+
 app.listen(portNum);
 console.log('Running app at localhost: ' + portNum);

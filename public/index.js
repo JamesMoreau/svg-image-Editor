@@ -326,3 +326,26 @@ function edit_svg() {
         }
     });
 }
+
+function create_svg_image() {
+    console.log("attempting to make new image");
+    file_name_from_form = $("#file_name_entry_box").val();
+    console.log(file_name_from_form);
+
+    $.ajax({
+        type: 'get',
+        dataType: 'json',
+        url: '/create_image',
+        data: {
+            fileName: file_name_from_form
+        },
+        success: function (status) {
+            console.log(status);
+            location.reload();
+        },
+        fail: function (error) {
+            $('#blah').html('Could not request edit to server');
+            console.log(error);
+        }
+    });
+}

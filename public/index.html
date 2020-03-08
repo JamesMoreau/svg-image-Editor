@@ -38,8 +38,18 @@
     <div>
         <form ref="uploadForm" id="uploadForm" action="/upload" method='post' encType="multipart/form-data">
             <input type="file" name="uploadFile" id="myFile"><br>
-            <input type="submit">
+            <input type="submit" class="btn btn-secondary">
         </form>
+    </div>
+
+    <h3>Create Image<h3>
+    <form ref='new_svg_fileName_form' id='new_svg_fileName_form'>
+        <div class="form-group">
+            <input type="text" class="form-control" id="file_name_entry_box" placeholder="Enter file name here">
+        </div>
+    </form>
+    <div>
+        <button onclick="create_svg_image()" class="btn btn-secondary">Submit</button>
     </div>
 
     <h3>SVG View Panel</h3>
@@ -102,8 +112,8 @@
     <div id="blah">I am blah</div>
     <hr>
     <form ref='someform'
-          id='someform'>
-          <div class="form-group">
+            id='someform'>
+            <div class="form-group">
                 <label for="entryBox">Last Name</label>
                 <input type="text" class="form-control" id="entryBox" value="Value" placeholder="Placeholder">
             </div>
