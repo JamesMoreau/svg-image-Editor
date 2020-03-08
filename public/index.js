@@ -318,6 +318,7 @@ function edit_svg() {
         },
         success: function (status) {
             console.log(status);
+            location.reload();
         },
         fail: function (error) {
             $('#blah').html('Could not request edit to server');

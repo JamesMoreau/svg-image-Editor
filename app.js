@@ -18,6 +18,7 @@ var cLib = ffi.Library('./parser/bin/libsvgparse.so', {
   "validateSVGimage_Wrapper": ["bool", ["string", "string"]],
   "setAttribute_Wrapper": ["void", ["string", "string", "int", "int", "string", "string"]],
   "setTitle_Wrapper": ["void", ["string", "string", "string"]],
+  "setDescription_Wrapper": ["void", ["string", "string", "string"]],
 });
 
 // cLib.functionName()
@@ -227,8 +228,10 @@ app.get('/send_edit', function (req, res) {
     cLib.setTitle_Wrapper(__dirname + '/uploads/' + edit_data.fileName,
                              './parser/test/schemaFiles/svg.xsd', 
                              edit_data.editText);
-  } else if (edit_data.editValue.localeCompare("Descscription") == 0) {
-    //set description value
+  } else if (edit_data.editValue.localeCompare("Description") == 0) {
+    cLib.setDescription_Wrapper(__dirname + '/uploads/' + edit_data.fileName,
+                              './parser/test/schemaFiles/svg.xsd', 
+                              edit_data.editText);
   } else {
     //set and attribute w/e it is
   }
