@@ -843,6 +843,13 @@ void setAttribute_Wrapper(char* filename, char* schemaFile, int elemType, int el
 	deleteSVGimage(img);
 }
 
+void setTitle_Wrapper(char* filename, char* schemaFile, char* value) {
+	SVGimage* img = createValidSVGimage(filename, schemaFile);
+	strncpy(img->title, value, 255);
+	writeSVGimage(img, filename);
+	deleteSVGimage(img);
+}
+
 SVGimage* JSONtoSVG(const char* svgString) {
 	if (!svgString) return (NULL);
 	char* s = strdup(svgString);
