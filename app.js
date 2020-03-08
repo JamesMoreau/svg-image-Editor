@@ -80,7 +80,6 @@ app.post('/upload', function (req, res) {
   }  
 
   // Use the mv() to place the file somewhere on your server
-  //!careful, mv is asynchronous
   uploadFile.mv(__dirname + '/uploads/' + uploadFile.name, function (err) {
     if (err) {
       return res.status(500).send(err);

@@ -828,7 +828,7 @@ char* SVG_get_description_Wrapper(char* filename, char* schemaFile) {
 
 bool validateSVGimage_Wrapper(char* filename, char* schemaFile) {
 	printf("filename: %s, schemaFile: %s\n", filename, schemaFile);
-	SVGimage* img = createValidSVGimage(filename, schemaFile); //this calls validate svg
+	SVGimage* img = createValidSVGimage(filename, schemaFile); //this calls validate svg implicitly
 	if (!img) return (false);
 	deleteSVGimage(img);
 	return (true);
@@ -1744,5 +1744,5 @@ bool validate_xml(xmlDoc* doc, char* schemaFile) {
 	xmlSchemaCleanupTypes();
 	xmlCleanupParser();
 
-	return (ret==0);
+	return (ret == 0);
 }
