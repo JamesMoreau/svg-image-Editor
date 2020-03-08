@@ -2,6 +2,7 @@
 $(document).ready(function () {
     // On page-load AJAX Example
     add_files_to_html();
+    check_upload_status();
 
     $.ajax({
         type: 'get',            //Request type
@@ -279,4 +280,39 @@ function add_files_to_html() {
             console.log(error);
         }
     });
+}
+
+function set_file_to_be_uploaded(value) {
+    var fileName = value.replace(/^.*[\\\/]/, '')
+    console.log('file to be uploaded is ' + fileName);
+    sessionStorage.setItem("file_to_be_uploaded", fileName);
+}
+
+function check_upload_status() {
+    if (sessionStorage.getItem("file_to_be_uploaded") == undefined) {
+        //?nothing was uploaded
+        console.log('fresh page');
+        return;
+    }
+
+    $.ajax({
+        type: 'get',
+        dataType: 'json',
+        url: '/upload_status',
+        data: {
+            fileName: sessionStorage.getItem("file_to_be_uploaded"),
+        },
+        success: function (upload_status) {
+            console.log(upload_status);
+            if (upload_status.status == true) {
+                console.log('file was successfully uploaded to the server!!!');
+            } else {
+                console.log('file failed to be uploaded by the serverX|');
+            }
+        },
+        fail: function (error) {
+            $('#blah').html('Could not request upload status from server');
+            console.log(error);
+        }
+    });   
 }
