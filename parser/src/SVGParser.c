@@ -857,6 +857,14 @@ void setDescription_Wrapper(char* filename, char* schemaFile, char* value) {
 	deleteSVGimage(img);
 }
 
+void create_empty_svg_image_wrapper(char* filename) {
+	printf("fileName: %s\n", filename);
+	char* jsonSVG = "{\"title\":\"newImage\",\"descr\":\"Empty Title\"}";
+	SVGimage* img = JSONtoSVG(jsonSVG);
+	writeSVGimage(img, filename);
+	deleteSVGimage(img);
+}
+
 SVGimage* JSONtoSVG(const char* svgString) {
 	if (!svgString) return (NULL);
 	char* s = strdup(svgString);

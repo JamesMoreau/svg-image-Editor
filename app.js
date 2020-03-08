@@ -5,7 +5,6 @@ const ffi = require('ffi-napi');
 
 var cLib = ffi.Library('./parser/bin/libsvgparse.so', {
   //"functionName": ["returnType", ["param1", "param2"]],
-  //"writeSVGimage": ["bool", ["string", "string"]],
   "SVGtoJSON_Wrapper": ["string", ["string", "string"]],
   "SVG_get_title_Wrapper": ["string", ["string", "string"]],
   "SVG_get_title_Wrapper": ["string", ["string", "string"]],
@@ -19,9 +18,8 @@ var cLib = ffi.Library('./parser/bin/libsvgparse.so', {
   "setAttribute_Wrapper": ["void", ["string", "string", "int", "int", "string", "string"]],
   "setTitle_Wrapper": ["void", ["string", "string", "string"]],
   "setDescription_Wrapper": ["void", ["string", "string", "string"]],
+  "create_empty_svg_image_wrapper":["void", ["string"]],
 });
-
-// cLib.functionName()
 
 // Express App (Routes)
 const express = require("express");
@@ -244,6 +242,14 @@ app.get('/send_edit', function (req, res) {
 app.get('/create_image', function (req, res) {
   console.log("request for making new image received.");
 
+  let fileName = req.query.fileName + '.svg';
+
+  cLib.create_empty_svg_image_wrapper(fileName);
+  console.log("created file: " + fileName);
+
+  fs.renameSync(fileName, "./uploads/" + fileName, function (err) {
+    console.log("moved file to correct dir");
+  });
 });
 
 app.listen(portNum);

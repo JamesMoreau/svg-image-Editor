@@ -59,5 +59,6 @@ char* attrListToJSON_Wrapper(char* filename, char* schemaFile);
 void setAttribute_Wrapper(char* filename, char* schemaFile, int elemType, int elemIndex, char* name, char* value);
 void setTitle_Wrapper(char* filename, char* schemaFile, char* value);
 void setDescription_Wrapper(char* filename, char* schemaFile, char* value);
+void create_empty_svg_image_wrapper(char* filename);
 
 #endif
