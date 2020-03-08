@@ -834,6 +834,15 @@ bool validateSVGimage_Wrapper(char* filename, char* schemaFile) {
 	return (true);
 }
 
+void setAttribute_Wrapper(char* filename, char* schemaFile, int elemType, int elemIndex, char* name, char* value) {
+	printf("EDITING: elemType: %d, elemIndex: %d, name: %s, value: %s", elemType, elemIndex, name, value);
+	SVGimage* img = createValidSVGimage(filename, schemaFile);
+	Attribute* a = Attribute_Constructor(name, value);
+	setAttribute(img, elemType, elemIndex, a);
+	writeSVGimage(img, filename);
+	deleteSVGimage(img);
+}
+
 SVGimage* JSONtoSVG(const char* svgString) {
 	if (!svgString) return (NULL);
 	char* s = strdup(svgString);

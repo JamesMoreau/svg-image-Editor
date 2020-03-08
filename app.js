@@ -16,6 +16,7 @@ var cLib = ffi.Library('./parser/bin/libsvgparse.so', {
   "groupListToJSON_Wrapper": ["string", ["string", "string"]],
   "attrListToJSON_Wrapper": ["string", ["string", "string"]],
   "validateSVGimage_Wrapper": ["bool", ["string", "string"]],
+  "setAttribute_Wrapper": ["void", ["string", "string", "int", "int", "string", "string"]],
 });
 
 // cLib.functionName()
@@ -219,6 +220,8 @@ app.get('/someendpoint', function (req, res) {
 
 app.get('/send_edit', function (req, res) {
   console.log("edit data: " + JSON.stringify(req.query));
+
+
 
   res.send({
     status: true,
