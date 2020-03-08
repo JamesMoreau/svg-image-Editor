@@ -52,19 +52,19 @@ function append_html_to_file_log(files) {
     for (let i = 0; i < files.length; i += 1) {
         let row = "<tr>";
 
-            row += '<td><a download="' + files[i].fileName + '" href="uploads/' + files[i].fileName + '"> <img src=uploads/' + files[i].fileName + ' border="3" height="100" width="100"> </a></td>';
+        row += '<td><a download="' + files[i].fileName + '" href="uploads/' + files[i].fileName + '"> <img src=uploads/' + files[i].fileName + ' border="3" height="100" width="100"> </a></td>';
 
-            row += '<td style="text-align:center"><a download="' + files[i].fileName + '" href="uploads/' + files[i].fileName + '">' + files[i].fileName + '</a></td>';
+        row += '<td style="text-align:center"><a download="' + files[i].fileName + '" href="uploads/' + files[i].fileName + '">' + files[i].fileName + '</a></td>';
 
-            row += '<td style="text-align:center">' + files[i].size + ' KB</td>';
+        row += '<td style="text-align:center">' + files[i].size + ' KB</td>';
 
-            row += '<td style="text-align:center">' + files[i].SVGdata.numRect + '</td>';
+        row += '<td style="text-align:center">' + files[i].SVGdata.numRect + '</td>';
 
-            row += '<td style="text-align:center">' + files[i].SVGdata.numCirc + '</td>';
+        row += '<td style="text-align:center">' + files[i].SVGdata.numCirc + '</td>';
 
-            row += '<td style="text-align:center">' + files[i].SVGdata.numPaths + '</td>';
+        row += '<td style="text-align:center">' + files[i].SVGdata.numPaths + '</td>';
 
-            row += '<td style="text-align:center">' + files[i].SVGdata.numGroups + '</td>';
+        row += '<td style="text-align:center">' + files[i].SVGdata.numGroups + '</td>';
 
         row += '</tr>';
 
@@ -127,7 +127,7 @@ function replace_svg_data_in_view(file_data) {
     replace_svg_image_in_view(file_data);
 
     replace_rectList_in_view(file_data);
-    
+
     replace_circList_in_view(file_data);
 
     replace_pathList_in_view(file_data);
@@ -145,23 +145,23 @@ function replace_rectList_in_view(file_data) {
         console.log('there are rectangles!');
         for (let x in file_data.rectList) {
             console.log(file_data.rectList[x]);
-            
+
             let row = '<tr>';
-            
-                let index = parseInt(x) + 1;
-                row += '<td>Rectangle '+ index +'</td>';
-                
-                row += '<td style="text-align:center">';
-                    row += 'Upper left corner: x = ' + file_data.rectList[x].x + file_data.rectList[x].units + ', y = ' + file_data.rectList[x].y + file_data.rectList[x].units + ', ';
-                    row += 'Width: ' + file_data.rectList[x].w + file_data.rectList[x].units + ', Height: ' + file_data.rectList[x].h + file_data.rectList[x].units;
-                row += '</td>';
-                
-                row += '<td>';
-                    row += file_data.rectList[x].numAttr;
-                row += '</td>';
-                
+
+            let index = parseInt(x) + 1;
+            row += '<td>Rectangle ' + index + '</td>';
+
+            row += '<td style="text-align:center">';
+            row += 'Upper left corner: x = ' + file_data.rectList[x].x + file_data.rectList[x].units + ', y = ' + file_data.rectList[x].y + file_data.rectList[x].units + ', ';
+            row += 'Width: ' + file_data.rectList[x].w + file_data.rectList[x].units + ', Height: ' + file_data.rectList[x].h + file_data.rectList[x].units;
+            row += '</td>';
+
+            row += '<td>';
+            row += file_data.rectList[x].numAttr;
+            row += '</td>';
+
             row += '</tr>';
-            
+
             console.log(row);
             $('#svg_image_component_table').append(row);
         }
@@ -174,19 +174,19 @@ function replace_circList_in_view(file_data) {
     if (file_data.circList.length > 0) {
         console.log('there are circles!');
         console.log(file_data.circList);
-        for (let x in file_data.circList) {        
+        for (let x in file_data.circList) {
             let row = '<tr>';
-            
-                let index = parseInt(x) + 1;
-                row += '<td>Circle '+ index +'</td>';
 
-                row += '<td>';
-                    row += 'Centre: x = ' + file_data.circList[x].cx + file_data.circList[x].units + ', y = ' + file_data.circList[x].cy + file_data.circList[x].units + ', radius = ' + file_data.circList[x].r + file_data.circList[x].units
-                row += '</td>';
+            let index = parseInt(x) + 1;
+            row += '<td>Circle ' + index + '</td>';
 
-                row += '<td>';
-                    row += file_data.circList[x].numAttr;
-                row += '</td>';
+            row += '<td>';
+            row += 'Centre: x = ' + file_data.circList[x].cx + file_data.circList[x].units + ', y = ' + file_data.circList[x].cy + file_data.circList[x].units + ', radius = ' + file_data.circList[x].r + file_data.circList[x].units
+            row += '</td>';
+
+            row += '<td>';
+            row += file_data.circList[x].numAttr;
+            row += '</td>';
 
             row += '</tr>';
             console.log(row);
@@ -204,16 +204,16 @@ function replace_pathList_in_view(file_data) {
         for (let x in file_data.pathList) {
             let row = '<tr>';
 
-                let index = parseInt(x) + 1;
-                row += '<td>Path ' + index + '</td>'
+            let index = parseInt(x) + 1;
+            row += '<td>Path ' + index + '</td>'
 
-                row += '<td>';
-                    row += 'path data = ' + file_data.pathList[x].d;
-                row += '</td>';
-                
-                row += '<td>';
-                    row += file_data.pathList[x].numAttr;
-                row += '</td>';
+            row += '<td>';
+            row += 'path data = ' + file_data.pathList[x].d;
+            row += '</td>';
+
+            row += '<td>';
+            row += file_data.pathList[x].numAttr;
+            row += '</td>';
 
             row += '</tr>'
 
@@ -232,16 +232,16 @@ function replace_groupList_in_view(file_data) {
         for (let x in file_data.groupList) {
             let row = '<tr>';
 
-                let index = parseInt(x) + 1;
-                row += '<td>Group ' + index + '</td>';
+            let index = parseInt(x) + 1;
+            row += '<td>Group ' + index + '</td>';
 
-                row += '<td>';
-                    row += file_data.groupList[x].children + ' child elements';
-                row += '</td>';
-                
-                row += '<td>';
-                    row += file_data.groupList[x].numAttr;
-                row += '</td>';
+            row += '<td>';
+            row += file_data.groupList[x].children + ' child elements';
+            row += '</td>';
+
+            row += '<td>';
+            row += file_data.groupList[x].numAttr;
+            row += '</td>';
 
             row += '</tr>';
 
@@ -259,8 +259,8 @@ function append_html_to_image_dropdown(files) {
         return;
     }
 
-    for (let i = 0; i < files.length; i+=1) {
-        let option = '<option>' + files[i].fileName +'</option>'
+    for (let i = 0; i < files.length; i += 1) {
+        let option = '<option>' + files[i].fileName + '</option>'
         $('#image_dropdown').append(option);
     }
 }
@@ -289,7 +289,7 @@ function edit_svg() {
         console.log("not valid edit value");
         return;
     }
-    
+
     //get svg view drowpdown value
     let svg_view_dropdown_value = $("#image_dropdown").val();
     console.log(svg_view_dropdown_value);
@@ -297,7 +297,7 @@ function edit_svg() {
         console.log("no svg image selected!");
         return;
     }
- 
+
     //get text
     let edit_text = $("#entry_box").val();
     if (edit_text.localeCompare("") == 0) {
@@ -350,4 +350,28 @@ function create_svg_image() {
     });
 
     location.reload();
+}
+
+function add_shape_to_svg() {
+
+}
+
+function update_add_shape_input(value) {
+    if (value == '') {
+        console.log('Not a real selection!');
+        return;
+    }
+    console.log("new dropdown to add image selected: " + value);
+
+    $('#add_shape_div').empty();
+
+    if (value.localeCompare("Rectangle") == 0) {
+        let rectangle_input = '<form ref="add_svg_image_form_data" id="add_svg_image_form_data"><div class="form-group"><input type="text" class="form-control" id="add_shape_text_box" placeholder="Enter here"></div></form><label for="x_val">X-Val: </label><input type="number" id="add_shape_x_val_input" name="x_val" min="1" max="5"><label for="y_val">Y-Val: </label><input type="number" id="add_shape_y_val_input" name="x_val" min="1" max="5"><div><button onclick="add_shape_to_svg()" class="btn btn-secondary">Submit</button></div>';
+        $('#add_shape_div').append(rectangle_input);
+    } else if (value.localeCompare("Circle") == 0) {
+        //define circle input
+        //add to div
+    } else {
+        console.log("Bad dropdown input");
+    }
 }
