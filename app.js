@@ -217,5 +217,13 @@ app.get('/someendpoint', function (req, res) {
   });
 });
 
+app.get('/send_edit', function (req, res) {
+  console.log("edit data: " + JSON.stringify(req.query));
+
+  res.send({
+    status: true,
+  });
+});
+
 app.listen(portNum);
 console.log('Running app at localhost: ' + portNum);

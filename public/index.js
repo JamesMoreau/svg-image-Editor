@@ -280,3 +280,48 @@ function add_files_to_html() {
         }
     });
 }
+
+function edit_svg() {
+    //get edit dropdown value
+    let edit_dropdown_value = $("#edit_dropdown :selected").text();
+    console.log("editing dropdown value: " + edit_dropdown_value);
+    if (edit_dropdown_value.localeCompare("") == 0) {
+        console.log("not valid edit value");
+        return;
+    }
+    
+    //get svg view drowpdown value
+    let svg_view_dropdown_value = $("#image_dropdown").val();
+    console.log(svg_view_dropdown_value);
+    if (svg_view_dropdown_value.localeCompare("") == 0) {
+        console.log("no svg image selected!");
+        return;
+    }
+ 
+    //get text
+    let edit_text = $("#entry_box").val();
+    if (edit_text.localeCompare("") == 0) {
+        console.log("no text inputed!");
+        return;
+    }
+
+    console.log("ready to send edit request!");
+    //send request to server to edit specified svg image
+    $.ajax({
+        type: 'get',
+        dataType: 'json',
+        url: '/send_edit',
+        data: {
+            fileName: svg_view_dropdown_value,
+            editValue: edit_dropdown_value,
+            editText: edit_text,
+        },
+        success: function (status) {
+            console.log(status);
+        },
+        fail: function (error) {
+            $('#blah').html('Could not request edit to server');
+            console.log(error);
+        }
+    });
+}

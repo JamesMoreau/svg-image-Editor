@@ -79,7 +79,23 @@
                 </tbody>
             </table>
         </div>
+    </div>
 
+    <div>
+        <h3>Edit</h3>
+        <select id="edit_dropdown">
+            <option></option>
+            <option>Title</option>
+            <option>Description</option>
+        </select>
+        <form ref='edit_text_form' id='edit_text_form'>
+            <div class="form-group">
+                    <input type="text" class="form-control" id="entry_box" placeholder="Enter here.">
+            </div>
+        </form>
+        <div>
+            <button onclick="edit_svg()" class="btn btn-secondary">Submit</button>
+        </div>
     </div>
 
     <hr>
