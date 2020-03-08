@@ -67,7 +67,6 @@ app.post('/upload', function (req, res) {
   
   if (uploadFile == undefined) {
     console.log("upload file is undefined!");
-    console.log('svg was already on the server!');
     return res.status(400).send('upload file is undefined!');
   }
 
@@ -81,6 +80,7 @@ app.post('/upload', function (req, res) {
   }  
 
   // Use the mv() to place the file somewhere on your server
+  //!careful, mv is asynchronous
   uploadFile.mv(__dirname + '/uploads/' + uploadFile.name, function (err) {
     if (err) {
       return res.status(500).send(err);
@@ -97,32 +97,12 @@ app.post('/upload', function (req, res) {
       } catch {
         console.log("unable to delete file from server. :( ");
       }
-      return res.status(400).send('svg file was not valid.');
+      return res.status(400).send('file was not valid.');
     }
-
-    //! here means everything succeeded
 
     res.redirect('/');
   });
 });
-
-app.get('/upload_status', function (req, res) {
-  let fileName = req.query.fileName;
-  let files = fs.readdirSync('./uploads/');
-  for (let x in files) {
-    if (fileName.localeCompare(files[x]) == 0) {
-      //?file was successfully uploaded
-      res.send({
-        status: true,
-      })
-    }
-  }
-
-  //!file was not successfully uploaded
-  res.send({
-    status: false,
-  })
-})
 
 //Respond to GET requests for files in the uploads/ directory
 app.get('/uploads/:name', function (req, res) {
