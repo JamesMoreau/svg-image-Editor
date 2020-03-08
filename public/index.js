@@ -344,8 +344,10 @@ function create_svg_image() {
             location.reload();
         },
         fail: function (error) {
-            $('#blah').html('Could not request edit to server');
+            $('#blah').html('Could not request making new image on server');
             console.log(error);
         }
     });
+
+    location.reload();
 }
