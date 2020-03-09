@@ -344,7 +344,7 @@ function create_svg_image() {
             location.reload();
         },
         fail: function (error) {
-            $('#blah').html('Could not request making new image on server');
+            console.log('Could not request making new image on server');
             console.log(error);
         }
     });
@@ -353,12 +353,86 @@ function create_svg_image() {
 }
 
 function add_shape_to_svg() {
-    //get value of shape selction dropdown
-    //get values of number inputs
-    //get units input
-    //?get text input for fill?
-    //make ajax call handing datat to server
-    //refresh the page
+    //get svg view drowpdown value
+    let selected_image = $("#image_dropdown").val();
+    console.log(selected_image);
+    if (selected_image.localeCompare("") == 0) {
+        console.log("no svg image selected!");
+        return;
+    }
+
+    let shape_selection = $('#add_shapes_dropdown').val();
+    console.log(shape_selection);
+
+    if (shape_selection.localeCompare("Rectangle") == 0) {
+        let x = $('#add_shape_x_val_input').val();
+        let y = $('#add_shape_y_val_input').val(); 
+        let w = $('#add_shape_width_input').val(); 
+        let h = $('#add_shape_height_input').val(); 
+        let u = $('#units').val();
+
+        if (!x || !y || !w || !h || !u ) {
+            console.log('bad rectangle input!');
+            return;
+        }
+
+        let rect_str = '{"x":' + x + ',"y":'+ y + ',"w":' + w + ',"h":'+ h +',"units":"' + u + '"}';
+        console.log(rect_str);
+
+        console.log('ready to send shape!')
+        $.ajax({
+            type: 'get',
+            dataType: 'json',
+            url: '/add_shape',
+            data: {
+                fileName: selected_image,
+                shape: shape_selection,
+                data: rect_str,
+            },
+            success: function (status) {
+                console.log(status);
+            },
+            fail: function (error) {
+                console.log('Could not request adding rectangle on server');
+                console.log(error);
+            }
+        });
+    } else if (shape_selection.localeCompare("Circle") == 0) {
+        let cx = $('#add_shape_cx_val_input').val();
+        let cy = $('#add_shape_cy_val_input').val();
+        let r = $('#add_shape_r_val_input').val();
+        let u = $('#units').val();
+
+        if (!cx || !cy || !r || !u) {
+            console.log('bad circle input values');
+        }
+
+        let circ_str = '{"cx":' + cx + ',"cy":' + cy + ',"r":' + r + ',"units":"' + u + '"}';
+        console.log(circ_str);
+
+        $.ajax({
+            type: 'get',
+            dataType: 'json',
+            url: '/add_shape',
+            data: {
+                fileName: selected_image,
+                shape: shape_selection,
+                data: circ_str,
+            },
+            success: function (status) {
+                console.log(status);
+            },
+            fail: function (error) {
+                console.log('Could not request adding a circle on server');
+                console.log(error);
+            }
+        });
+    } else {
+        console.log('invalid selection of shape');
+        return;
+    }
+
+    location.reload();
 }
 
 function update_add_shape_input(value) {
@@ -375,15 +449,15 @@ function update_add_shape_input(value) {
             r_input += '<div class="form-group"><input type="text" class="form-control" id="add_shape_text_box" placeholder="Enter here"></div>';
         r_input += '</form>';
 
-        r_input += '<label for="x_val">X-Val:</label><input type="number" id="add_shape_x_val_input" name="x_val" min="1" max="5" style="margin:5px;">';
+        r_input += '<label for="x_val">X-Val:</label><input type="number" id="add_shape_x_val_input" name="x_val" min="-100" max="100" style="margin:5px;">';
         
-        r_input += '<label for="y_val">Y-Val:</label><input type="number" id="add_shape_y_val_input" name="y_val" min="1" max="5" style="margin:5px;">';
+        r_input += '<label for="y_val">Y-Val:</label><input type="number" id="add_shape_y_val_input" name="y_val" min="-100" max="100" style="margin:5px;">';
         
-        r_input += '<label for="width_val">Width:</label><input type="number" id="add_shape_width_input" name="width_val" min="1" max="5" style="margin:5px;">';
+        r_input += '<label for="width_val">Width:</label><input type="number" id="add_shape_width_input" name="width_val" min="0" max="100" style="margin:5px;">';
         
-        r_input += '<label for="height_val">Height:</label><input type="number" id="add_shape_height_input" name="height_val" min="1" max="5" style="margin:5px;">';
+        r_input += '<label for="height_val">Height:</label><input type="number" id="add_shape_height_input" name="height_val" min="0" max="100" style="margin:5px;">';
 
-        r_input += '<label for="units">Units:</label><input type="text" id="units" name="units" maxlength="4" size="4" style="margin:5px;">';
+        r_input += '<label for="units">Units:</label><input type="text" id="units" name="units" maxlength="6" size="6" style="margin:5px;">';
 
         r_input += '<div><button onclick="add_shape_to_svg()" class="btn btn-secondary">Submit</button></div>';
 
@@ -393,13 +467,13 @@ function update_add_shape_input(value) {
             c_input += '<div class="form-group"><input type="text" class="form-control" id="add_shape_text_box" placeholder="Enter here"></div>';
         c_input += '</form>';
 
-        c_input += '<label for="cx_val">cx:</label><input type="number" id="add_shape_cx_val_input" name="cx_val" min="1" max="5" style="margin:5px;">';
+        c_input += '<label for="cx_val">cx:</label><input type="number" id="add_shape_cx_val_input" name="cx_val" min="-100" max="100" style="margin:5px;">';
         
-        c_input += '<label for="cy_val">cy:</label><input type="number" id="add_shape_cy_val_input" name="cy_val" min="1" max="5" style="margin:5px;">';
+        c_input += '<label for="cy_val">cy:</label><input type="number" id="add_shape_cy_val_input" name="cy_val" min="-100" max="100" style="margin:5px;">';
         
-        c_input += '<label for="r_val">r:</label><input type="number" id="add_shape_r_val_input" name="r_val" min="1" max="5" style="margin:5px;">';
+        c_input += '<label for="r_val">r:</label><input type="number" id="add_shape_r_val_input" name="r_val" min="0" max="100" style="margin:5px;">';
 
-        c_input += '<label for="units">Units:</label><input type="text" id="units" name="units" maxlength="4" size="4" style="margin:5px;">';
+        c_input += '<label for="units">Units:</label><input type="text" id="units" name="units" maxlength="6" size="6" style="margin:5px;">';
 
         c_input += '<div><button onclick="add_shape_to_svg()" class="btn btn-secondary">Submit</button></div>';
 

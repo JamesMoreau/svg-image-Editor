@@ -827,7 +827,7 @@ char* SVG_get_description_Wrapper(char* filename, char* schemaFile) {
 }
 
 bool validateSVGimage_Wrapper(char* filename, char* schemaFile) {
-	printf("filename: %s, schemaFile: %s\n", filename, schemaFile);
+	printf("(C)filename: %s, schemaFile: %s\n", filename, schemaFile);
 	SVGimage* img = createValidSVGimage(filename, schemaFile); //this calls validate svg implicitly
 	if (!img) return (false);
 	deleteSVGimage(img);
@@ -835,7 +835,7 @@ bool validateSVGimage_Wrapper(char* filename, char* schemaFile) {
 }
 
 void setAttribute_Wrapper(char* filename, char* schemaFile, int elemType, int elemIndex, char* name, char* value) {
-	printf("EDITING: elemType: %d, elemIndex: %d, name: %s, value: %s", elemType, elemIndex, name, value);
+	printf("(C) EDITING: elemType: %d, elemIndex: %d, name: %s, value: %s", elemType, elemIndex, name, value);
 	SVGimage* img = createValidSVGimage(filename, schemaFile);
 	Attribute* a = Attribute_Constructor(name, value);
 	setAttribute(img, elemType, elemIndex, a);
@@ -858,9 +858,32 @@ void setDescription_Wrapper(char* filename, char* schemaFile, char* value) {
 }
 
 void create_empty_svg_image_wrapper(char* filename) {
-	printf("fileName: %s\n", filename);
+	printf("(C) fileName: %s\n", filename);
 	char* jsonSVG = "{\"title\":\"newImage\",\"descr\":\"Empty Title\"}";
 	SVGimage* img = JSONtoSVG(jsonSVG);
+	writeSVGimage(img, filename);
+	deleteSVGimage(img);
+}
+
+void add_component_Wrapper(char* filename, char* schemaFile, int elemType, char* JSONstring) {	
+	SVGimage* img = createValidSVGimage(filename, schemaFile);
+
+	printf("(C) fileName: %s, elemType %d, JSONstring %s\n", filename,
+														   elemType,
+														   JSONstring);
+	
+	if (elemType == RECT) {
+		Rectangle* rect = JSONtoRect(JSONstring);
+		printf("(C) JSONtoRect gave: %s\n", rectToJSON(rect));
+		addComponent(img, RECT, rect);
+	} else if (elemType == CIRC) {
+		Circle* circ = JSONtoCircle(JSONstring);
+		printf("(C) JSONtoCircle gave: %s\n", circleToJSON(circ));
+		addComponent(img, CIRC, circ);
+	} else {
+		printf("bad input\n");
+	}
+
 	writeSVGimage(img, filename);
 	deleteSVGimage(img);
 }
