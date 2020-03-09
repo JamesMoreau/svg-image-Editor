@@ -19,7 +19,7 @@ var cLib = ffi.Library('./parser/bin/libsvgparse.so', {
   "setTitle_Wrapper": ["void", ["string", "string", "string"]],
   "setDescription_Wrapper": ["void", ["string", "string", "string"]],
   "create_empty_svg_image_wrapper":["void", ["string"]],
-  "add_component_Wrapper":["void", ["string", "string", "int", "string"]],
+  "add_component_Wrapper":["void", ["string", "string", "int", "string", "string"]],
 });
 
 // Express App (Routes)
@@ -259,8 +259,10 @@ app.get('/create_image', function (req, res) {
 
 app.get('/add_shape', function (req, res) {
   let data = req.query.data;
-  let shape = req.query.shape
-  let fileName = req.query.fileName
+  let shape = req.query.shape;
+  let fileName = req.query.fileName;
+  let colour = req.query.colour;
+
   console.log("request for adding shape: " + shape + "received, with json data:" + data);
 
   console.log("adding shape to: " + fileName);
@@ -269,13 +271,15 @@ app.get('/add_shape', function (req, res) {
     cLib.add_component_Wrapper(__dirname + '/uploads/' + fileName, 
                               './parser/test/schemaFiles/svg.xsd',
                               2,
-                              data);
+                              data,
+                              colour);
 
   } else if (shape.localeCompare("Circle") == 0) {
     cLib.add_component_Wrapper(__dirname + '/uploads/' + fileName, 
                               './parser/test/schemaFiles/svg.xsd',
                               1,
-                              data);
+                              data,
+                              colour);
   } else {
     console.log("ERROR BAD SHAPE HOW");
   }

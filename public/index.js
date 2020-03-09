@@ -361,6 +361,12 @@ function add_shape_to_svg() {
         return;
     }
 
+    let colour_selection = $('#add_shape_text_box').val();
+    console.log(colour_selection);
+    if (colour_selection.localeCompare("") == 0){
+        console.log('no Colour!');
+    }
+
     let shape_selection = $('#add_shapes_dropdown').val();
     console.log(shape_selection);
 
@@ -388,6 +394,7 @@ function add_shape_to_svg() {
                 fileName: selected_image,
                 shape: shape_selection,
                 data: rect_str,
+                colour: colour_selection,
             },
             success: function (status) {
                 console.log(status);
@@ -418,6 +425,7 @@ function add_shape_to_svg() {
                 fileName: selected_image,
                 shape: shape_selection,
                 data: circ_str,
+                colour: colour_selection,
             },
             success: function (status) {
                 console.log(status);
@@ -446,7 +454,7 @@ function update_add_shape_input(value) {
 
     if (value.localeCompare("Rectangle") == 0) {
         let r_input = '<form ref="add_svg_image_form_data" id="add_svg_image_form_data">';
-            r_input += '<div class="form-group"><input type="text" class="form-control" id="add_shape_text_box" placeholder="Enter here"></div>';
+            r_input += '<div class="form-group"><input type="text" class="form-control" id="add_shape_text_box" placeholder="Enter Shape Colour"></div>';
         r_input += '</form>';
 
         r_input += '<label for="x_val">X-Val:</label><input type="number" id="add_shape_x_val_input" name="x_val" min="-100" max="100" style="margin:5px;">';
@@ -464,7 +472,7 @@ function update_add_shape_input(value) {
         $('#add_shape_div').append(r_input);
     } else if (value.localeCompare("Circle") == 0) {
         let c_input = '<form ref="add_svg_image_form_data" id="add_svg_image_form_data">';
-            c_input += '<div class="form-group"><input type="text" class="form-control" id="add_shape_text_box" placeholder="Enter here"></div>';
+            c_input += '<div class="form-group"><input type="text" class="form-control" id="add_shape_text_box" placeholder="Enter Shape Colour"></div>';
         c_input += '</form>';
 
         c_input += '<label for="cx_val">cx:</label><input type="number" id="add_shape_cx_val_input" name="cx_val" min="-100" max="100" style="margin:5px;">';

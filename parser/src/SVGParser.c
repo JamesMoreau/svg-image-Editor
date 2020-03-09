@@ -865,8 +865,9 @@ void create_empty_svg_image_wrapper(char* filename) {
 	deleteSVGimage(img);
 }
 
-void add_component_Wrapper(char* filename, char* schemaFile, int elemType, char* JSONstring) {	
+void add_component_Wrapper(char* filename, char* schemaFile, int elemType, char* JSONstring, char* colour) {	
 	SVGimage* img = createValidSVGimage(filename, schemaFile);
+	Attribute* colour_attribute = Attribute_Constructor("fill", colour);
 
 	printf("(C) fileName: %s, elemType %d, JSONstring %s\n", filename,
 														   elemType,
@@ -875,10 +876,13 @@ void add_component_Wrapper(char* filename, char* schemaFile, int elemType, char*
 	if (elemType == RECT) {
 		Rectangle* rect = JSONtoRect(JSONstring);
 		printf("(C) JSONtoRect gave: %s\n", rectToJSON(rect));
+		insertBack(rect->otherAttributes, colour_attribute);
 		addComponent(img, RECT, rect);
+
 	} else if (elemType == CIRC) {
 		Circle* circ = JSONtoCircle(JSONstring);
 		printf("(C) JSONtoCircle gave: %s\n", circleToJSON(circ));
+		insertBack(circ->otherAttributes, colour_attribute);
 		addComponent(img, CIRC, circ);
 	} else {
 		printf("bad input\n");
