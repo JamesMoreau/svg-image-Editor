@@ -355,9 +355,10 @@ function create_svg_image() {
 function add_shape_to_svg() {
     //get value of shape selction dropdown
     //get values of number inputs
+    //get units input
     //?get text input for fill?
     //make ajax call handing datat to server
-
+    //refresh the page
 }
 
 function update_add_shape_input(value) {
