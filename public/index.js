@@ -363,7 +363,7 @@ function add_shape_to_svg() {
 
     let colour_selection = $('#add_shape_text_box').val();
     console.log(colour_selection);
-    if (colour_selection.localeCompare("") == 0){
+    if (colour_selection.localeCompare("") == 0) {
         console.log('no Colour!');
     }
 
@@ -372,17 +372,17 @@ function add_shape_to_svg() {
 
     if (shape_selection.localeCompare("Rectangle") == 0) {
         let x = $('#add_shape_x_val_input').val();
-        let y = $('#add_shape_y_val_input').val(); 
-        let w = $('#add_shape_width_input').val(); 
-        let h = $('#add_shape_height_input').val(); 
+        let y = $('#add_shape_y_val_input').val();
+        let w = $('#add_shape_width_input').val();
+        let h = $('#add_shape_height_input').val();
         let u = $('#units').val();
 
-        if (!x || !y || !w || !h || !u ) {
+        if (!x || !y || !w || !h || !u) {
             console.log('bad rectangle input!');
             return;
         }
 
-        let rect_str = '{"x":' + x + ',"y":'+ y + ',"w":' + w + ',"h":'+ h +',"units":"' + u + '"}';
+        let rect_str = '{"x":' + x + ',"y":' + y + ',"w":' + w + ',"h":' + h + ',"units":"' + u + '"}';
         console.log(rect_str);
 
         console.log('ready to send shape!')
@@ -454,15 +454,15 @@ function update_add_shape_input(value) {
 
     if (value.localeCompare("Rectangle") == 0) {
         let r_input = '<form ref="add_svg_image_form_data" id="add_svg_image_form_data">';
-            r_input += '<div class="form-group"><input type="text" class="form-control" id="add_shape_text_box" placeholder="Enter Shape Colour"></div>';
+        r_input += '<div class="form-group"><input type="text" class="form-control" id="add_shape_text_box" placeholder="Enter Shape Colour"></div>';
         r_input += '</form>';
 
         r_input += '<label for="x_val">X-Val:</label><input type="number" id="add_shape_x_val_input" name="x_val" min="-100" max="100" style="margin:5px;">';
-        
+
         r_input += '<label for="y_val">Y-Val:</label><input type="number" id="add_shape_y_val_input" name="y_val" min="-100" max="100" style="margin:5px;">';
-        
+
         r_input += '<label for="width_val">Width:</label><input type="number" id="add_shape_width_input" name="width_val" min="0" max="100" style="margin:5px;">';
-        
+
         r_input += '<label for="height_val">Height:</label><input type="number" id="add_shape_height_input" name="height_val" min="0" max="100" style="margin:5px;">';
 
         r_input += '<label for="units">Units:</label><input type="text" id="units" name="units" maxlength="6" size="6" style="margin:5px;">';
@@ -472,13 +472,13 @@ function update_add_shape_input(value) {
         $('#add_shape_div').append(r_input);
     } else if (value.localeCompare("Circle") == 0) {
         let c_input = '<form ref="add_svg_image_form_data" id="add_svg_image_form_data">';
-            c_input += '<div class="form-group"><input type="text" class="form-control" id="add_shape_text_box" placeholder="Enter Shape Colour"></div>';
+        c_input += '<div class="form-group"><input type="text" class="form-control" id="add_shape_text_box" placeholder="Enter Shape Colour"></div>';
         c_input += '</form>';
 
         c_input += '<label for="cx_val">cx:</label><input type="number" id="add_shape_cx_val_input" name="cx_val" min="-100" max="100" style="margin:5px;">';
-        
+
         c_input += '<label for="cy_val">cy:</label><input type="number" id="add_shape_cy_val_input" name="cy_val" min="-100" max="100" style="margin:5px;">';
-        
+
         c_input += '<label for="r_val">r:</label><input type="number" id="add_shape_r_val_input" name="r_val" min="0" max="100" style="margin:5px;">';
 
         c_input += '<label for="units">Units:</label><input type="text" id="units" name="units" maxlength="6" size="6" style="margin:5px;">';
@@ -490,5 +490,5 @@ function update_add_shape_input(value) {
         console.log("Bad dropdown input");
     }
 
-    window.scrollTo(0,document.body.scrollHeight);
+    window.scrollTo(0, document.body.scrollHeight);
 }

@@ -18,8 +18,8 @@ var cLib = ffi.Library('./parser/bin/libsvgparse.so', {
   "setAttribute_Wrapper": ["void", ["string", "string", "int", "int", "string", "string"]],
   "setTitle_Wrapper": ["void", ["string", "string", "string"]],
   "setDescription_Wrapper": ["void", ["string", "string", "string"]],
-  "create_empty_svg_image_wrapper":["void", ["string"]],
-  "add_component_Wrapper":["void", ["string", "string", "int", "string", "string"]],
+  "create_empty_svg_image_wrapper": ["void", ["string"]],
+  "add_component_Wrapper": ["void", ["string", "string", "int", "string", "string"]],
 });
 
 // Express App (Routes)
@@ -66,7 +66,7 @@ app.post('/upload', function (req, res) {
 
   let uploadFile = req.files.uploadFile;
   console.log("Files: " + req.files);
-  
+
   if (uploadFile == undefined) {
     console.log("upload file is undefined!");
     return res.status(400).send('upload file is undefined!');
@@ -79,7 +79,7 @@ app.post('/upload', function (req, res) {
       console.log('svg was already on the server!');
       return res.status(400).send('file already uploaded!');
     }
-  }  
+  }
 
   // Use the mv() to place the file somewhere on your server
   uploadFile.mv(__dirname + '/uploads/' + uploadFile.name, function (err) {
@@ -87,7 +87,7 @@ app.post('/upload', function (req, res) {
       return res.status(500).send(err);
     }
     console.log("moved file to " + __dirname + '/uploads/' + uploadFile.name);
-    
+
     let val = cLib.validateSVGimage_Wrapper(__dirname + '/uploads/' + uploadFile.name, './parser/test/schemaFiles/svg.xsd');
     console.log(val);
     if (val == false) {
@@ -166,7 +166,7 @@ app.get('/getFileData', function (req, res) {
   } else {
     console.log(rect_list_string);
   }
-  
+
   let circ_list_string = cLib.circListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd');
   if (circ_list_string.localeCompare("[]") == 0) {
     console.log("SVG has no circles.");
@@ -202,7 +202,7 @@ app.get('/getFileData', function (req, res) {
     rectList: JSON.parse(rect_list_string),
     circList: JSON.parse(circ_list_string),
     pathList: JSON.parse(path_list_string),
-    groupList:JSON.parse(group_list_string),
+    groupList: JSON.parse(group_list_string),
     attrList: JSON.parse(attr_list_string),
   };
 
@@ -225,12 +225,12 @@ app.get('/send_edit', function (req, res) {
 
   if (edit_data.editValue.localeCompare("Title") == 0) {
     cLib.setTitle_Wrapper(__dirname + '/uploads/' + edit_data.fileName,
-                             './parser/test/schemaFiles/svg.xsd', 
-                             edit_data.editText);
+      './parser/test/schemaFiles/svg.xsd',
+      edit_data.editText);
   } else if (edit_data.editValue.localeCompare("Description") == 0) {
     cLib.setDescription_Wrapper(__dirname + '/uploads/' + edit_data.fileName,
-                              './parser/test/schemaFiles/svg.xsd', 
-                              edit_data.editText);
+      './parser/test/schemaFiles/svg.xsd',
+      edit_data.editText);
   } else {
     //set and attribute w/e it is
   }
@@ -268,18 +268,18 @@ app.get('/add_shape', function (req, res) {
   console.log("adding shape to: " + fileName);
 
   if (shape.localeCompare("Rectangle") == 0) {
-    cLib.add_component_Wrapper(__dirname + '/uploads/' + fileName, 
-                              './parser/test/schemaFiles/svg.xsd',
-                              2,
-                              data,
-                              colour);
+    cLib.add_component_Wrapper(__dirname + '/uploads/' + fileName,
+      './parser/test/schemaFiles/svg.xsd',
+      2,
+      data,
+      colour);
 
   } else if (shape.localeCompare("Circle") == 0) {
-    cLib.add_component_Wrapper(__dirname + '/uploads/' + fileName, 
-                              './parser/test/schemaFiles/svg.xsd',
-                              1,
-                              data,
-                              colour);
+    cLib.add_component_Wrapper(__dirname + '/uploads/' + fileName,
+      './parser/test/schemaFiles/svg.xsd',
+      1,
+      data,
+      colour);
   } else {
     console.log("ERROR BAD SHAPE HOW");
   }
