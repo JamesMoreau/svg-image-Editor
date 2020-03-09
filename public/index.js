@@ -366,12 +366,23 @@ function update_add_shape_input(value) {
     $('#add_shape_div').empty();
 
     if (value.localeCompare("Rectangle") == 0) {
-        let rectangle_input = '<form ref="add_svg_image_form_data" id="add_svg_image_form_data"><div class="form-group"><input type="text" class="form-control" id="add_shape_text_box" placeholder="Enter here"></div></form><label for="x_val">X-Val: </label><input type="number" id="add_shape_x_val_input" name="x_val" min="1" max="5"><label for="y_val">Y-Val: </label><input type="number" id="add_shape_y_val_input" name="x_val" min="1" max="5"><div><button onclick="add_shape_to_svg()" class="btn btn-secondary">Submit</button></div>';
-        $('#add_shape_div').append(rectangle_input);
+        let r_input = '<form ref="add_svg_image_form_data" id="add_svg_image_form_data">';
+            r_input += '<div class="form-group"><input type="text" class="form-control" id="add_shape_text_box" placeholder="Enter here"></div>';
+        r_input += '</form>';
+
+        r_input += '<label for="x_val">X-Val:</label><input type="number" id="add_shape_x_val_input" name="x_val" min="1" max="5" style="margin:5px;">';
+        
+        r_input += '<label for="y_val">Y-Val:</label><input type="number" id="add_shape_y_val_input" name="y_val" min="1" max="5" style="margin:5px;">';
+    
+        r_input += '<div><button onclick="add_shape_to_svg()" class="btn btn-secondary">Submit</button></div>';
+
+        $('#add_shape_div').append(r_input);
     } else if (value.localeCompare("Circle") == 0) {
         //define circle input
         //add to div
     } else {
         console.log("Bad dropdown input");
     }
+
+    window.scrollTo(0,document.body.scrollHeight);
 }
