@@ -134,8 +134,6 @@ function replace_svg_data_in_view(file_data) {
     replace_pathList_in_view(file_data);
 
     replace_groupList_in_view(file_data);
-
-    replace_attribute_list_in_view(file_data);
 }
 
 function replace_svg_image_in_view(file_data) {
@@ -152,7 +150,7 @@ function replace_rectList_in_view(file_data) {
             let row = '<tr>';
 
             let index = parseInt(x) + 1;
-            row += '<td>Rectangle ' + index + '</td>';
+            row += '<td class="nr">Rectangle ' + index + '</td>';
 
             row += '<td style="text-align:center">';
             row += 'Upper left corner: x = ' + file_data.rectList[x].x + file_data.rectList[x].units + ', y = ' + file_data.rectList[x].y + file_data.rectList[x].units + ', ';
@@ -161,6 +159,9 @@ function replace_rectList_in_view(file_data) {
 
             row += '<td>';
             row += file_data.rectList[x].numAttr;
+            if (file_data.rectList[x].numAttr > 0) {
+                row += '<button type="button" style="margin:5px;"class="btn btn-secondary" onclick="show_attributes(this);">Show</button>';
+            }
             row += '</td>';
 
             row += '</tr>';
@@ -189,6 +190,9 @@ function replace_circList_in_view(file_data) {
 
             row += '<td>';
             row += file_data.circList[x].numAttr;
+            if (file_data.circList[x].numAttr > 0) {
+                row += '<button type="button" style="margin:5px;"class="btn btn-secondary" onclick="show_attributes(this);">Show</button>';
+            }
             row += '</td>';
 
             row += '</tr>';
@@ -216,6 +220,9 @@ function replace_pathList_in_view(file_data) {
 
             row += '<td>';
             row += file_data.pathList[x].numAttr;
+            if (file_data.pathList[x].numAttr > 0) {
+                row += '<button type="button" style="margin:5px;;"class="btn btn-secondary" onclick="show_attributes(this);">Show</button>';
+            }
             row += '</td>';
 
             row += '</tr>'
@@ -244,6 +251,9 @@ function replace_groupList_in_view(file_data) {
 
             row += '<td>';
             row += file_data.groupList[x].numAttr;
+            if (file_data.groupList[x].numAttr > 0) {
+                row += '<button type="button" style="margin:5px;"class="btn btn-secondary" onclick="show_attributes(this);">Show</button>';
+            }
             row += '</td>';
 
             row += '</tr>';
@@ -256,8 +266,34 @@ function replace_groupList_in_view(file_data) {
     }
 }
 
-function replace_attribute_list_in_view(file_data) {
-    //use currently selected file to fill attribute dropdown with svg components that have attributes
+function show_attributes(element) {
+    var value = $('#image_dropdown').val();
+    if (value.localeCompare("") == 0) {
+        console.log('bad input how did this happen!?')
+    }
+
+    var component = $(element).closest('tr').find('td:first').text();
+    
+    $.ajax({
+        type: 'get',
+        dataType: 'json',
+        url: '/get_component_data',
+        data: {
+            fileName: value,
+            componentType: component.split(" ")[0],
+            index: component.match(/\d+/)[0],    
+        },
+        success: function (component_data) {
+            ret_str = JSON.stringify(component_data.data, null, 2).replace(/\"/g, '').replace(/{/g, '').replace(/}/g, '');
+            console.log("received " + ret_str);
+            alert(ret_str);
+        },
+        fail: function (error) {
+            $('#blah').html('Could not request file data' + fileName + 'from server');
+            console.log(error);
+            alert(error);
+        }
+    });
 }
 
 function append_html_to_image_dropdown(files) {

@@ -13,7 +13,7 @@ var cLib = ffi.Library('./parser/bin/libsvgparse.so', {
   "circListToJSON_Wrapper": ["string", ["string", "string"]],
   "pathListToJSON_Wrapper": ["string", ["string", "string"]],
   "groupListToJSON_Wrapper": ["string", ["string", "string"]],
-  "attrListToJSON_Wrapper": ["string", ["string", "string"]],
+  "attrListToJSON_Wrapper": ["string", ["string", "string", "int", "int"]],
   "validateSVGimage_Wrapper": ["bool", ["string", "string"]],
   "setAttribute_Wrapper": ["void", ["string", "string", "int", "int", "string", "string"]],
   "setTitle_Wrapper": ["void", ["string", "string", "string"]],
@@ -181,7 +181,7 @@ app.get('/getFileData', function (req, res) {
     console.log(path_list_string);
   }
 
-  let attr_list_string = cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd');
+  let attr_list_string = cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 0, 0);
   if (attr_list_string.localeCompare("[]") == 0) {
     console.log("SVG has no attribute.");
   } else {
@@ -289,6 +289,37 @@ app.get('/add_shape', function (req, res) {
   res.send({
     status: true,
   });
+});
+
+app.get('/get_component_data', function (req, res) {
+  let fileName = req.query.fileName;
+  let componentType = req.query.componentType;
+  console.log(componentType);
+  let index = parseInt(req.query.index) - 1;
+
+  console.log("received request for attributes data")
+  console.log(JSON.stringify(req.query));
+
+  if (componentType.localeCompare("Rectangle") == 0) {
+    console.log("rectangle string received: " + cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 2, index))
+    res.send({
+      data: JSON.parse(cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 2, index).replace(/[\[\]']+/g,'')),
+    });
+  } else if (componentType.localeCompare("Circle") == 0) {
+    res.send({
+      data: JSON.parse(cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 1, index).replace(/[\[\]']+/g,'')),
+    });
+  } else if (componentType.localeCompare("Path") == 0) {
+    res.send({
+      data: JSON.parse(cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 3, index).replace(/[\[\]']+/g,'')),
+    });
+  } else if (componentType.localeCompare("Group") == 0) {
+    res.send({
+      data: JSON.parse(cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 4, index).replace(/[\[\]']+/g,'')),
+    });
+  } else {
+    console.log("ERROR BAD COMPONENT HOW");
+  }
 });
 
 app.listen(portNum);
