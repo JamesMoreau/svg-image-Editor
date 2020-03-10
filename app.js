@@ -303,20 +303,27 @@ app.get('/get_component_data', function (req, res) {
   if (componentType.localeCompare("Rectangle") == 0) {
     console.log("rectangle string received: " + cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 2, index))
     res.send({
-      data: JSON.parse(cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 2, index).replace(/[\[\]']+/g,'')),
+      data: JSON.parse(cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 2, index)),
     });
+
   } else if (componentType.localeCompare("Circle") == 0) {
+    console.log("circle received: " + cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 1, index));
     res.send({
-      data: JSON.parse(cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 1, index).replace(/[\[\]']+/g,'')),
+      data: JSON.parse(cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 1, index)),
     });
+
   } else if (componentType.localeCompare("Path") == 0) {
+    console.log("Path received: " + cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 3, index));
     res.send({
-      data: JSON.parse(cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 3, index).replace(/[\[\]']+/g,'')),
+      data: JSON.parse(cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 3, index)),
     });
+
   } else if (componentType.localeCompare("Group") == 0) {
+    console.log("group received" + cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 4, index));
     res.send({
-      data: JSON.parse(cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 4, index).replace(/[\[\]']+/g,'')),
+      data: JSON.parse(cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 4, index)),
     });
+
   } else {
     console.log("ERROR BAD COMPONENT HOW");
   }
