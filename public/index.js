@@ -75,6 +75,7 @@ function append_html_to_file_log(files) {
 function fill_svg_image_data(value) {
     if (value == '') {
         console.log('Not a real selection!');
+        alert("Not a real selection!");
         return;
     }
     console.log("new dropdown image selected: " + value);
@@ -287,6 +288,7 @@ function edit_svg() {
     console.log("editing dropdown value: " + edit_dropdown_value);
     if (edit_dropdown_value.localeCompare("") == 0) {
         console.log("not valid edit value");
+        alert("not valid edit value");
         return;
     }
 
@@ -295,6 +297,7 @@ function edit_svg() {
     console.log(svg_view_dropdown_value);
     if (svg_view_dropdown_value.localeCompare("") == 0) {
         console.log("no svg image selected!");
+        alert("no svg image selected!");
         return;
     }
 
@@ -302,6 +305,7 @@ function edit_svg() {
     let edit_text = $("#entry_box").val();
     if (edit_text.localeCompare("") == 0) {
         console.log("no text inputed!");
+        alert("no text inputed!");
         return;
     }
 
@@ -331,6 +335,11 @@ function create_svg_image() {
     console.log("attempting to make new image");
     file_name_from_form = $("#file_name_entry_box").val();
     console.log(file_name_from_form);
+    if (file_name_from_form.localeCompare("") == 0) {
+        console.log("bad file name input");
+        alert("bad file name input");
+        return;
+    }
 
     $.ajax({
         type: 'get',
@@ -358,6 +367,7 @@ function add_shape_to_svg() {
     console.log(selected_image);
     if (selected_image.localeCompare("") == 0) {
         console.log("no svg image selected!");
+        alert("no svg image selected!");
         return;
     }
 
@@ -365,6 +375,8 @@ function add_shape_to_svg() {
     console.log(colour_selection);
     if (colour_selection.localeCompare("") == 0) {
         console.log('no Colour!');
+        alert("no colour");
+        return;
     }
 
     let shape_selection = $('#add_shapes_dropdown').val();
@@ -379,6 +391,7 @@ function add_shape_to_svg() {
 
         if (!x || !y || !w || !h || !u) {
             console.log('bad rectangle input!');
+            alert("bad rectangle input");
             return;
         }
 
@@ -412,6 +425,8 @@ function add_shape_to_svg() {
 
         if (!cx || !cy || !r || !u) {
             console.log('bad circle input values');
+            alert('bad circle input values');
+            return;
         }
 
         let circ_str = '{"cx":' + cx + ',"cy":' + cy + ',"r":' + r + ',"units":"' + u + '"}';
@@ -437,6 +452,7 @@ function add_shape_to_svg() {
         });
     } else {
         console.log('invalid selection of shape');
+        alert('invalid selection of shape');
         return;
     }
 
@@ -446,6 +462,7 @@ function add_shape_to_svg() {
 function update_add_shape_input(value) {
     if (value == '') {
         console.log('Not a real selection!');
+        alert('Not a real selection!');
         return;
     }
     console.log("new dropdown to add image selected: " + value);
