@@ -134,6 +134,8 @@ function replace_svg_data_in_view(file_data) {
     replace_pathList_in_view(file_data);
 
     replace_groupList_in_view(file_data);
+
+    replace_attribute_list_in_view(file_data);
 }
 
 function replace_svg_image_in_view(file_data) {
@@ -252,6 +254,10 @@ function replace_groupList_in_view(file_data) {
     } else {
         console.log('there are no groups.')
     }
+}
+
+function replace_attribute_list_in_view(file_data) {
+    //use currently selected file to fill attribute dropdown with svg components that have attributes
 }
 
 function append_html_to_image_dropdown(files) {
