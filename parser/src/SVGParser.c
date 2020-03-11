@@ -803,6 +803,7 @@ char* groupListToJSON_Wrapper(char* filename, char* schemaFile) {
 	return (s);
 }
 
+//! forgot to create list of all shapes!!!
 char* attrListToJSON_Wrapper(char* filename, char* schemaFile, int elemType, int elemIndex) {
 	SVGimage* img = createValidSVGimage(filename, schemaFile);
 	char* s = NULL;
@@ -812,13 +813,13 @@ char* attrListToJSON_Wrapper(char* filename, char* schemaFile, int elemType, int
 		s = attrListToJSON(img->otherAttributes);	
 	} else if (elemType == CIRC) {
 		ListIterator cI = createIterator(img->circles);
-			Circle* cPtr;
-			while((cPtr = (Circle*)nextElement(&cI)) != NULL) {
-				if (elemIndex == 0) {
-					s = attrListToJSON(cPtr->otherAttributes);
-				}
-				elemIndex--;
+		Circle* cPtr;
+		while((cPtr = (Circle*)nextElement(&cI)) != NULL) {
+			if (elemIndex == 0) {
+				s = attrListToJSON(cPtr->otherAttributes);
 			}
+			elemIndex--;
+		}
 	} else if (elemType == RECT) {
 		ListIterator rI = createIterator(img->rectangles);
 		Rectangle* rPtr;
@@ -930,6 +931,33 @@ void add_component_Wrapper(char* filename, char* schemaFile, int elemType, char*
 		printf("(C) JSONtoCircle gave: %s\n", circleToJSON(circ));
 		insertBack(circ->otherAttributes, colour_attribute);
 		addComponent(img, CIRC, circ);
+	} else {
+		printf("bad input\n");
+	}
+
+	writeSVGimage(img, filename);
+	deleteSVGimage(img);
+}
+
+void scale_components_Wrapper(char* filename, char* schemaFile, int elemType, double factor) {
+	printf("(C) received: elemType: %d, factor: %lf", elemType, factor);
+	SVGimage* img = createValidSVGimage(filename, schemaFile);
+	
+	if (elemType == RECT) {
+		List* rects = getRects(img);
+		ListIterator rI = createIterator(rects);
+		Rectangle* rPtr;
+		while((rPtr = (Rectangle*)nextElement(&rI)) != NULL) {
+			rPtr->height *= factor;
+			rPtr->width *= factor;
+		}
+	} else if (elemType == CIRC) {
+		List* circles = getCircles(img);
+		ListIterator cI = createIterator(circles);
+		Circle* cPtr;
+		while((cPtr = (Circle*)nextElement(&cI)) != NULL) {
+			cPtr->r *= factor;
+		}
 	} else {
 		printf("bad input\n");
 	}

@@ -599,3 +599,44 @@ function edit_attribute() {
         }
     });
 }
+
+function scale_shapes() {
+    //get svg image selection
+    let selected_image = $("#image_dropdown").val();
+    if (selected_image.localeCompare("") == 0) {
+        console.log("no svg image selected!");
+        alert("no svg image selected!");
+        return;
+    }
+    
+    //get shape selection
+    let component_selection = $('#scale_shapes_dropdown').val();
+    if (component_selection.localeCompare("") == 0) {
+        console.log("not a valid component selection");
+        alert("not a valid component selection");
+    }
+
+    //get factor 
+    let scale_factor_selection = $('#factor_shapes_value').val();
+
+    console.log("selected_image: " + selected_image + " shape selection: " + component_selection + "factor: " + scale_factor_selection);
+
+    $.ajax({
+        type: 'get',
+        dataType: 'json',
+        url: '/scale_components',
+        data: {
+            fileName: selected_image,
+            componentType: component_selection,
+            factor: scale_factor_selection,
+        },
+        success: function (status) {
+            console.log(status);
+            location.reload();
+        },
+        fail: function (error) {
+            console.log('Could not request adding a circle on server');
+            console.log(error);
+        }
+    });
+}

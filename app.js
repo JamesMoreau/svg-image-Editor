@@ -20,6 +20,7 @@ var cLib = ffi.Library('./parser/bin/libsvgparse.so', {
   "setDescription_Wrapper": ["void", ["string", "string", "string"]],
   "create_empty_svg_image_wrapper": ["void", ["string"]],
   "add_component_Wrapper": ["void", ["string", "string", "int", "string", "string"]],
+  "scale_components_Wrapper": ["void", ["string", "string", "int", "double"]],
 });
 
 // Express App (Routes)
@@ -355,7 +356,31 @@ app.get('/edit_attribute', function (req, res) {
     console.log("bad selection HOWW DID THIS HAPPEN X]");
   }
 
-  console.log("added attribute to image!");
+  console.log("edited/added image attribute!");
+  res.send({
+    status: true,
+  });
+});
+
+app.get('/scale_components', function (req, res) {
+  console.log('request for scaling shapes received');
+  console.log(JSON.stringify(req.query));
+
+  let fileName = req.query.fileName;
+  let componentType = req.query.componentType;
+  let factor = req.query.factor;
+  
+  if (componentType.localeCompare("Rectangle") == 0) {
+    cLib.scale_components_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 2, factor);
+    
+  } else if (componentType.localeCompare("Circle") == 0) {
+    cLib.scale_components_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 1, factor);
+    
+  } else {
+    console.log("bad selection HOWW DID THIS HAPPEN XXXXX");
+  }
+
+  console.log("done scaled components!");
   res.send({
     status: true,
   });

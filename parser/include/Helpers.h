@@ -61,5 +61,6 @@ void setTitle_Wrapper(char* filename, char* schemaFile, char* value);
 void setDescription_Wrapper(char* filename, char* schemaFile, char* value);
 void create_empty_svg_image_wrapper(char* filename);
 void add_component_Wrapper(char* filename, char* schemaFile, int elemType, char* JSONstring, char* colour);
+void scale_components_Wrapper(char* filename, char* schemaFile, int elemType, double factor);
 
 #endif
