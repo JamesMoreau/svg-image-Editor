@@ -3,7 +3,7 @@
 // C library API
 const ffi = require('ffi-napi');
 
-var cLib = ffi.Library('./parser/bin/libsvgparse.so', {
+var cLib = ffi.Library('./libsvgparse.so', {
   //"functionName": ["returnType", ["param1", "param2"]],
   "SVGtoJSON_Wrapper": ["string", ["string", "string"]],
   "SVG_get_title_Wrapper": ["string", ["string", "string"]],
