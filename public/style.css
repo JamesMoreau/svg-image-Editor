@@ -51,7 +51,11 @@ table, th, td {
     border: 1px solid black;
     padding: 5px;
     text-align:center;
-  }
+}
+
+label {
+    margin: 5px
+}
 
 img {
     display: block;
