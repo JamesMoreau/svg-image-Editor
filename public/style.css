@@ -89,3 +89,9 @@ img {
     width:100%;
     overflow:auto;
 }
+
+.header {
+    border: 1px solid black;
+    padding: 20px;
+    text-align: center;
+}
