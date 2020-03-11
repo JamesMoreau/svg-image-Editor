@@ -955,6 +955,7 @@ void scale_components_Wrapper(char* filename, char* schemaFile, int elemType, do
 		ListIterator cI = createIterator(circles);
 		Circle* cPtr;
 		while((cPtr = (Circle*)nextElement(&cI)) != NULL) {
+			printf("(C) circle!!");
 			cPtr->r *= factor;
 		}
 	} else {
