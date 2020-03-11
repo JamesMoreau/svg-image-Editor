@@ -879,8 +879,9 @@ bool validateSVGimage_Wrapper(char* filename, char* schemaFile) {
 }
 
 void setAttribute_Wrapper(char* filename, char* schemaFile, int elemType, int elemIndex, char* name, char* value) {
-	printf("(C) EDITING: elemType: %d, elemIndex: %d, name: %s, value: %s", elemType, elemIndex, name, value);
+	printf("(C) EDITING: elemType: %d, elemIndex: %d, name: %s, value: %s\n", elemType, elemIndex, name, value);
 	SVGimage* img = createValidSVGimage(filename, schemaFile);
+	if (!img) return;
 	Attribute* a = Attribute_Constructor(name, value);
 	setAttribute(img, elemType, elemIndex, a);
 	writeSVGimage(img, filename);
@@ -905,6 +906,7 @@ void create_empty_svg_image_wrapper(char* filename) {
 	printf("(C) fileName: %s\n", filename);
 	char* jsonSVG = "{\"title\":\"newImage\",\"descr\":\"Empty Title\"}";
 	SVGimage* img = JSONtoSVG(jsonSVG);
+	setAttribute(img, SVG_IMAGE, 0, Attribute_Constructor("viewBox", "0 0 1000 1000"));
 	writeSVGimage(img, filename);
 	deleteSVGimage(img);
 }

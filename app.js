@@ -329,5 +329,37 @@ app.get('/get_component_data', function (req, res) {
   }
 });
 
+app.get('/edit_attribute', function (req, res) {
+  let fileName = req.query.fileName;
+  let index = parseInt(req.query.index) - 1;
+  let a_name = req.query.attributeName; 
+  let a_value = req.query.attributeValue;
+  let componentType = req.query.componentType;
+  
+  if (componentType.localeCompare("SVG") == 0) {
+    cLib.setAttribute_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 0, index, a_name, a_value);
+
+  } else if (componentType.localeCompare("Rectangle") == 0) {
+    cLib.setAttribute_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 2, index, a_name, a_value);
+
+  } else if (componentType.localeCompare("Circle") == 0) {
+    cLib.setAttribute_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 1, index, a_name, a_value);
+    
+  } else if (componentType.localeCompare("Path") == 0) {
+    cLib.setAttribute_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 3, index, a_name, a_value);
+    
+  } else if (componentType.localeCompare("Group") == 0) {
+    cLib.setAttribute_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 4, index, a_name, a_value);
+
+  } else {
+    console.log("bad selection HOWW DID THIS HAPPEN X]");
+  }
+
+  console.log("added attribute to image!");
+  res.send({
+    status: true,
+  });
+});
+
 app.listen(portNum);
 console.log('Running app at localhost: ' + portNum);

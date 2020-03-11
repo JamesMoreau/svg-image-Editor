@@ -552,6 +552,50 @@ function update_add_shape_input(value) {
     } else {
         console.log("Bad dropdown input");
     }
+}
 
-    window.scrollTo(0, document.body.scrollHeight);
+function edit_attribute() {
+    console.log("request for editing attribtue");
+
+    let selected_image = $("#image_dropdown").val();
+    console.log(selected_image);
+    if (selected_image.localeCompare("") == 0) {
+        console.log("no svg image selected!");
+        alert("no svg image selected!");
+        return;
+    }
+    
+    //get shape selection
+    let component_selection = $('#attribute_edit_dropdown').val();
+    if (component_selection.localeCompare("") == 0) {
+        console.log("not a valid component selection");
+        alert("not a valid component selection");
+    }
+
+    let selected_index = $('#attribute_edit_index').val();
+    
+    let attribute_name = $('#attribute_name_edit_entry_box').val();
+    
+    let attribute_value = $('#attribute_value_edit_entry_box').val();
+
+    $.ajax({
+        type: 'get',
+        dataType: 'json',
+        url: '/edit_attribute',
+        data: {
+            fileName: selected_image,
+            componentType: component_selection,
+            index: selected_index,
+            attributeName: attribute_name,
+            attributeValue: attribute_value,
+        },
+        success: function (status) {
+            console.log(status);
+            location.reload();
+        },
+        fail: function (error) {
+            console.log('Could not request adding a circle on server');
+            console.log(error);
+        }
+    });
 }
