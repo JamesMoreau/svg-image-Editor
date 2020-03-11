@@ -26,8 +26,8 @@
 
 <body>
     <h3>File Log Panel</h3>
-    <div style="height:635px; overflow:auto; border:5px double black;">
-        <table id="file_log_table" style="width:100%" rules="all">
+    <div class="file_log_table_div">
+        <table id="file_log_table" rules="all">
             <thead>
                 <tr>
                     <th>Image (click to download)</th>
@@ -67,15 +67,15 @@
                 <option></option>
             </select>
 
-            <div style="border:5px double black;">
+            <div class="svg_view_image_div">
                 <img id="svg_view_image" width='800' align="middle">
 
-                <table id="svg_image_basic_table" style="width:100%" rules="all">
+                <table class="svg_image_basic_table" id="svg_image_basic_table" rules="all">
                     <col width="33%">
                     <col width="66%">
                     <tr>
-                        <th style="text-align:center">Title</th>
-                        <th style="text-align:center">Description</th>
+                        <th>Title</th>
+                        <th>Description</th>
                     </tr>
                     <tr>
                         <td id="title_cell" valign="top"></td>
@@ -83,15 +83,15 @@
                     </tr>
                 </table>
 
-                <div id="component_table_div" style="overflow-y:auto">
-                    <table style="width:100%;overflow:auto;" rules="all">
+                <div class="component_table_div" id="component_table_div">
+                    <table class="component_table" rules="all">
                         <col width="15%">
                         <col width="60%">
                         <col width="25%">
 
-                        <th style="text-align:center">Component</th>
-                        <th style="text-align:center">Summary</th>
-                        <th style="text-align:center">Other Attributes</th>
+                        <th>Component</th>
+                        <th>Summary</th>
+                        <th>Other Attributes</th>
 
                         <tbody id="svg_image_component_table">
                         </tbody>
@@ -139,7 +139,7 @@
                     <option>Path</option>
                     <option>Group</option>
                 </select>
-                <label for="index_select">Index:</label><input type="number" id="attribute_edit_index" name="index_select" min="0" max="100" style="margin:5px;">
+                <label for="index_select">Index:</label><input type="number" id="attribute_edit_index" name="index_select" min="0" max="100">
                 <form ref='attribute_edit_text_form' id='attribute_edit_text_form'>
                     <div class="form-group">
                         <input type="text" class="form-control" id="attribute_name_edit_entry_box" placeholder="Enter Attribute Name">
@@ -147,6 +147,17 @@
                     </div>
                 </form>
                 <button onclick="edit_attribute()" class="btn btn-secondary">Submit</button>
+            </div>
+            <br>
+            <div>
+                <h3>Scale Shapes</h3>
+                <select id="scale_shapes_dropdown">
+                    <option></option>
+                    <option>Rectangle</option>
+                    <option>Circle</option>
+                </select>
+                <label for="factor_select">Factor:</label><input type="number" id="factor_shapes_value" name="factor_select" min="0" max="100">
+                <button onclick="scale_shapes()" class="btn btn-secondary">Submit</button>
             </div>
             <hr>
             <br>

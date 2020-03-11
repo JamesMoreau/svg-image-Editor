@@ -27,6 +27,7 @@ a:link:hover {
 input[type=submit], button {
     cursor: pointer;
     cursor: hand;
+    margin:1px;
 }
 @media(max-width: 900px) {
     html {
@@ -56,4 +57,31 @@ img {
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+.file_log_table_div {
+    height:635px; 
+    overflow:auto; 
+    border:5px double black;
+}
+
+.file_log_table {
+    width:100%;
+}
+
+.svg_view_image_div {
+    border:5px double black;
+}
+
+.svg_image_basic_table {
+    width:100%
+}
+
+.component_table_div {
+    overflow-y:auto;
+}
+
+.component_table {
+    width:100%;
+    overflow:auto;
 }
