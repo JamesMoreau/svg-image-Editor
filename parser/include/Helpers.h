@@ -55,7 +55,7 @@ char* groupListToJSON_Wrapper(char* filename, char* schemaFile);
 char* rectListToJSON_Wrapper(char* filename, char* schemaFile);
 char* circListToJSON_Wrapper(char* filename, char* schemaFile);
 char* pathListToJSON_Wrapper(char* filename, char* schemaFile);
-char* attrListToJSON_Wrapper(char* filename, char* schemaFile);
+char* attrListToJSON_Wrapper(char* filename, char* schemaFile, int elemType, int elemIndex);
 void setAttribute_Wrapper(char* filename, char* schemaFile, int elemType, int elemIndex, char* name, char* value);
 void setTitle_Wrapper(char* filename, char* schemaFile, char* value);
 void setDescription_Wrapper(char* filename, char* schemaFile, char* value);

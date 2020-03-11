@@ -75,6 +75,7 @@ function append_html_to_file_log(files) {
 function fill_svg_image_data(value) {
     if (value == '') {
         console.log('Not a real selection!');
+        alert("Not a real selection!");
         return;
     }
     console.log("new dropdown image selected: " + value);
@@ -149,7 +150,7 @@ function replace_rectList_in_view(file_data) {
             let row = '<tr>';
 
             let index = parseInt(x) + 1;
-            row += '<td>Rectangle ' + index + '</td>';
+            row += '<td class="nr">Rectangle ' + index + '</td>';
 
             row += '<td style="text-align:center">';
             row += 'Upper left corner: x = ' + file_data.rectList[x].x + file_data.rectList[x].units + ', y = ' + file_data.rectList[x].y + file_data.rectList[x].units + ', ';
@@ -158,6 +159,9 @@ function replace_rectList_in_view(file_data) {
 
             row += '<td>';
             row += file_data.rectList[x].numAttr;
+            if (file_data.rectList[x].numAttr > 0) {
+                row += '<button type="button" style="margin:5px;"class="btn btn-secondary" onclick="show_attributes(this);">Show</button>';
+            }
             row += '</td>';
 
             row += '</tr>';
@@ -186,6 +190,9 @@ function replace_circList_in_view(file_data) {
 
             row += '<td>';
             row += file_data.circList[x].numAttr;
+            if (file_data.circList[x].numAttr > 0) {
+                row += '<button type="button" style="margin:5px;"class="btn btn-secondary" onclick="show_attributes(this);">Show</button>';
+            }
             row += '</td>';
 
             row += '</tr>';
@@ -213,6 +220,9 @@ function replace_pathList_in_view(file_data) {
 
             row += '<td>';
             row += file_data.pathList[x].numAttr;
+            if (file_data.pathList[x].numAttr > 0) {
+                row += '<button type="button" style="margin:5px;;"class="btn btn-secondary" onclick="show_attributes(this);">Show</button>';
+            }
             row += '</td>';
 
             row += '</tr>'
@@ -241,6 +251,9 @@ function replace_groupList_in_view(file_data) {
 
             row += '<td>';
             row += file_data.groupList[x].numAttr;
+            if (file_data.groupList[x].numAttr > 0) {
+                row += '<button type="button" style="margin:5px;"class="btn btn-secondary" onclick="show_attributes(this);">Show</button>';
+            }
             row += '</td>';
 
             row += '</tr>';
@@ -251,6 +264,40 @@ function replace_groupList_in_view(file_data) {
     } else {
         console.log('there are no groups.')
     }
+}
+
+function show_attributes(element) {
+    var value = $('#image_dropdown').val();
+    if (value.localeCompare("") == 0) {
+        console.log('bad input how did this happen!?')
+    }
+
+    var component = $(element).closest('tr').find('td:first').text();
+    
+    $.ajax({
+        type: 'get',
+        dataType: 'json',
+        url: '/get_component_data',
+        data: {
+            fileName: value,
+            componentType: component.split(" ")[0],
+            index: component.match(/\d+/)[0],    
+        },
+        success: function (component_data) {
+            ret_str = JSON.stringify(component_data.data, null, 2).replace(/\"/g, '')
+                                                                  .replace(/{/g, '')
+                                                                  .replace(/}/g, '')
+                                                                  .replace(/[\[\]']+/g, '')
+                                                                  .replace(/,/g, '');
+            console.log("received " + ret_str);
+            alert(ret_str);
+        },
+        fail: function (error) {
+            $('#blah').html('Could not request file data' + fileName + 'from server');
+            console.log(error);
+            alert(error);
+        }
+    });
 }
 
 function append_html_to_image_dropdown(files) {
@@ -287,6 +334,7 @@ function edit_svg() {
     console.log("editing dropdown value: " + edit_dropdown_value);
     if (edit_dropdown_value.localeCompare("") == 0) {
         console.log("not valid edit value");
+        alert("not valid edit value");
         return;
     }
 
@@ -295,6 +343,7 @@ function edit_svg() {
     console.log(svg_view_dropdown_value);
     if (svg_view_dropdown_value.localeCompare("") == 0) {
         console.log("no svg image selected!");
+        alert("no svg image selected!");
         return;
     }
 
@@ -302,6 +351,7 @@ function edit_svg() {
     let edit_text = $("#entry_box").val();
     if (edit_text.localeCompare("") == 0) {
         console.log("no text inputed!");
+        alert("no text inputed!");
         return;
     }
 
@@ -331,6 +381,11 @@ function create_svg_image() {
     console.log("attempting to make new image");
     file_name_from_form = $("#file_name_entry_box").val();
     console.log(file_name_from_form);
+    if (file_name_from_form.localeCompare("") == 0) {
+        console.log("bad file name input");
+        alert("bad file name input");
+        return;
+    }
 
     $.ajax({
         type: 'get',
@@ -358,6 +413,7 @@ function add_shape_to_svg() {
     console.log(selected_image);
     if (selected_image.localeCompare("") == 0) {
         console.log("no svg image selected!");
+        alert("no svg image selected!");
         return;
     }
 
@@ -365,6 +421,8 @@ function add_shape_to_svg() {
     console.log(colour_selection);
     if (colour_selection.localeCompare("") == 0) {
         console.log('no Colour!');
+        alert("no colour");
+        return;
     }
 
     let shape_selection = $('#add_shapes_dropdown').val();
@@ -379,6 +437,7 @@ function add_shape_to_svg() {
 
         if (!x || !y || !w || !h || !u) {
             console.log('bad rectangle input!');
+            alert("bad rectangle input");
             return;
         }
 
@@ -412,6 +471,8 @@ function add_shape_to_svg() {
 
         if (!cx || !cy || !r || !u) {
             console.log('bad circle input values');
+            alert('bad circle input values');
+            return;
         }
 
         let circ_str = '{"cx":' + cx + ',"cy":' + cy + ',"r":' + r + ',"units":"' + u + '"}';
@@ -437,6 +498,7 @@ function add_shape_to_svg() {
         });
     } else {
         console.log('invalid selection of shape');
+        alert('invalid selection of shape');
         return;
     }
 
@@ -446,6 +508,7 @@ function add_shape_to_svg() {
 function update_add_shape_input(value) {
     if (value == '') {
         console.log('Not a real selection!');
+        alert('Not a real selection!');
         return;
     }
     console.log("new dropdown to add image selected: " + value);
@@ -489,6 +552,50 @@ function update_add_shape_input(value) {
     } else {
         console.log("Bad dropdown input");
     }
+}
 
-    window.scrollTo(0, document.body.scrollHeight);
+function edit_attribute() {
+    console.log("request for editing attribtue");
+
+    let selected_image = $("#image_dropdown").val();
+    console.log(selected_image);
+    if (selected_image.localeCompare("") == 0) {
+        console.log("no svg image selected!");
+        alert("no svg image selected!");
+        return;
+    }
+    
+    //get shape selection
+    let component_selection = $('#attribute_edit_dropdown').val();
+    if (component_selection.localeCompare("") == 0) {
+        console.log("not a valid component selection");
+        alert("not a valid component selection");
+    }
+
+    let selected_index = $('#attribute_edit_index').val();
+    
+    let attribute_name = $('#attribute_name_edit_entry_box').val();
+    
+    let attribute_value = $('#attribute_value_edit_entry_box').val();
+
+    $.ajax({
+        type: 'get',
+        dataType: 'json',
+        url: '/edit_attribute',
+        data: {
+            fileName: selected_image,
+            componentType: component_selection,
+            index: selected_index,
+            attributeName: attribute_name,
+            attributeValue: attribute_value,
+        },
+        success: function (status) {
+            console.log(status);
+            location.reload();
+        },
+        fail: function (error) {
+            console.log('Could not request adding a circle on server');
+            console.log(error);
+        }
+    });
 }

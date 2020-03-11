@@ -803,10 +803,54 @@ char* groupListToJSON_Wrapper(char* filename, char* schemaFile) {
 	return (s);
 }
 
-char* attrListToJSON_Wrapper(char* filename, char* schemaFile) {
+char* attrListToJSON_Wrapper(char* filename, char* schemaFile, int elemType, int elemIndex) {
 	SVGimage* img = createValidSVGimage(filename, schemaFile);
-	char* s = attrListToJSON(img->otherAttributes);
+	char* s = NULL;
+	printf("(C) elemType: %d, elemIndex = %d\n", elemType, elemIndex);
+
+	if (elemType == SVG_IMAGE) {
+		s = attrListToJSON(img->otherAttributes);	
+	} else if (elemType == CIRC) {
+		ListIterator cI = createIterator(img->circles);
+			Circle* cPtr;
+			while((cPtr = (Circle*)nextElement(&cI)) != NULL) {
+				if (elemIndex == 0) {
+					s = attrListToJSON(cPtr->otherAttributes);
+				}
+				elemIndex--;
+			}
+	} else if (elemType == RECT) {
+		ListIterator rI = createIterator(img->rectangles);
+		Rectangle* rPtr;
+		while((rPtr = (Rectangle*)nextElement(&rI)) != NULL) {
+			if (elemIndex == 0) {
+				s = attrListToJSON(rPtr->otherAttributes);
+			}
+			elemIndex--;
+		}
+	} else if (elemType == PATH) {
+		ListIterator pI = createIterator(img->paths);
+		Path* pPtr;
+		while((pPtr = (Path*)nextElement(&pI)) != NULL) {
+			if (elemIndex == 0)	{
+				s = attrListToJSON(pPtr->otherAttributes);
+			}
+			elemIndex--;
+		}
+	} else if (elemType == GROUP) {
+		ListIterator gI = createIterator(img->groups);
+		Group* gPtr;
+		while((gPtr = (Group*)nextElement(&gI)) != NULL) {
+			if (elemIndex == 0)	{
+				s = attrListToJSON(gPtr->otherAttributes);
+			}
+			elemIndex--;
+		}
+	} else {
+		printf("(C) bad elemtype input.\n");
+	}
 	deleteSVGimage(img);
+	printf("(C) returning attribute string: %s\n", s);
 	return (s);
 }
 
@@ -835,8 +879,9 @@ bool validateSVGimage_Wrapper(char* filename, char* schemaFile) {
 }
 
 void setAttribute_Wrapper(char* filename, char* schemaFile, int elemType, int elemIndex, char* name, char* value) {
-	printf("(C) EDITING: elemType: %d, elemIndex: %d, name: %s, value: %s", elemType, elemIndex, name, value);
+	printf("(C) EDITING: elemType: %d, elemIndex: %d, name: %s, value: %s\n", elemType, elemIndex, name, value);
 	SVGimage* img = createValidSVGimage(filename, schemaFile);
+	if (!img) return;
 	Attribute* a = Attribute_Constructor(name, value);
 	setAttribute(img, elemType, elemIndex, a);
 	writeSVGimage(img, filename);
@@ -861,6 +906,7 @@ void create_empty_svg_image_wrapper(char* filename) {
 	printf("(C) fileName: %s\n", filename);
 	char* jsonSVG = "{\"title\":\"newImage\",\"descr\":\"Empty Title\"}";
 	SVGimage* img = JSONtoSVG(jsonSVG);
+	setAttribute(img, SVG_IMAGE, 0, Attribute_Constructor("viewBox", "0 0 1000 1000"));
 	writeSVGimage(img, filename);
 	deleteSVGimage(img);
 }

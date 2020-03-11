@@ -60,7 +60,7 @@
                 <button onclick="create_svg_image()" class="btn btn-secondary">Submit</button>
             </div>
             <hr>
-            <h3>SVG View Panel</h3>
+    <h3>SVG View Panel</h3>
             <label for="cars">Choose an image:</label>
 
             <select onchange="fill_svg_image_data(this.value)" id="image_dropdown">
@@ -101,7 +101,7 @@
             <hr>
 
             <div>
-                <h3>Edit</h3>
+                <h3>Edit Title & Description</h3>
                 <select id="edit_dropdown">
                     <option></option>
                     <option>Title</option>
@@ -128,6 +128,27 @@
                 <div id="add_shape_div">
                 </div>
             </div>
+            <br>
+            <div>
+                <h3>Edit Attributes</h3>
+                <select id="attribute_edit_dropdown">
+                    <option></option>
+                    <option>SVG</option>
+                    <option>Rectangle</option>
+                    <option>Circle</option>
+                    <option>Path</option>
+                    <option>Group</option>
+                </select>
+                <label for="index_select">Index:</label><input type="number" id="attribute_edit_index" name="index_select" min="0" max="100" style="margin:5px;">
+                <form ref='attribute_edit_text_form' id='attribute_edit_text_form'>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="attribute_name_edit_entry_box" placeholder="Enter Attribute Name">
+                        <input type="text" class="form-control" id="attribute_value_edit_entry_box" placeholder="Enter Attribute Value">
+                    </div>
+                </form>
+                <button onclick="edit_attribute()" class="btn btn-secondary">Submit</button>
+            </div>
+            <hr>
             <br>
             <br>
             <!-- Leave me at the bottom of body -->

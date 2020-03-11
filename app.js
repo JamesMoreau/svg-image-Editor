@@ -13,7 +13,7 @@ var cLib = ffi.Library('./parser/bin/libsvgparse.so', {
   "circListToJSON_Wrapper": ["string", ["string", "string"]],
   "pathListToJSON_Wrapper": ["string", ["string", "string"]],
   "groupListToJSON_Wrapper": ["string", ["string", "string"]],
-  "attrListToJSON_Wrapper": ["string", ["string", "string"]],
+  "attrListToJSON_Wrapper": ["string", ["string", "string", "int", "int"]],
   "validateSVGimage_Wrapper": ["bool", ["string", "string"]],
   "setAttribute_Wrapper": ["void", ["string", "string", "int", "int", "string", "string"]],
   "setTitle_Wrapper": ["void", ["string", "string", "string"]],
@@ -181,7 +181,7 @@ app.get('/getFileData', function (req, res) {
     console.log(path_list_string);
   }
 
-  let attr_list_string = cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd');
+  let attr_list_string = cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 0, 0);
   if (attr_list_string.localeCompare("[]") == 0) {
     console.log("SVG has no attribute.");
   } else {
@@ -286,6 +286,76 @@ app.get('/add_shape', function (req, res) {
 
   console.log("added shape to image. ayyyy!");
 
+  res.send({
+    status: true,
+  });
+});
+
+app.get('/get_component_data', function (req, res) {
+  let fileName = req.query.fileName;
+  let componentType = req.query.componentType;
+  console.log(componentType);
+  let index = parseInt(req.query.index) - 1;
+
+  console.log("received request for attributes data")
+  console.log(JSON.stringify(req.query));
+
+  if (componentType.localeCompare("Rectangle") == 0) {
+    console.log("rectangle string received: " + cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 2, index))
+    res.send({
+      data: JSON.parse(cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 2, index)),
+    });
+
+  } else if (componentType.localeCompare("Circle") == 0) {
+    console.log("circle received: " + cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 1, index));
+    res.send({
+      data: JSON.parse(cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 1, index)),
+    });
+
+  } else if (componentType.localeCompare("Path") == 0) {
+    console.log("Path received: " + cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 3, index));
+    res.send({
+      data: JSON.parse(cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 3, index)),
+    });
+
+  } else if (componentType.localeCompare("Group") == 0) {
+    console.log("group received" + cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 4, index));
+    res.send({
+      data: JSON.parse(cLib.attrListToJSON_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 4, index)),
+    });
+
+  } else {
+    console.log("ERROR BAD COMPONENT HOW");
+  }
+});
+
+app.get('/edit_attribute', function (req, res) {
+  let fileName = req.query.fileName;
+  let index = parseInt(req.query.index) - 1;
+  let a_name = req.query.attributeName; 
+  let a_value = req.query.attributeValue;
+  let componentType = req.query.componentType;
+  
+  if (componentType.localeCompare("SVG") == 0) {
+    cLib.setAttribute_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 0, index, a_name, a_value);
+
+  } else if (componentType.localeCompare("Rectangle") == 0) {
+    cLib.setAttribute_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 2, index, a_name, a_value);
+
+  } else if (componentType.localeCompare("Circle") == 0) {
+    cLib.setAttribute_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 1, index, a_name, a_value);
+    
+  } else if (componentType.localeCompare("Path") == 0) {
+    cLib.setAttribute_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 3, index, a_name, a_value);
+    
+  } else if (componentType.localeCompare("Group") == 0) {
+    cLib.setAttribute_Wrapper(__dirname + '/uploads/' + fileName, './parser/test/schemaFiles/svg.xsd', 4, index, a_name, a_value);
+
+  } else {
+    console.log("bad selection HOWW DID THIS HAPPEN X]");
+  }
+
+  console.log("added attribute to image!");
   res.send({
     status: true,
   });
