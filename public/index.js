@@ -520,13 +520,13 @@ function update_add_shape_input(value) {
         r_input += '<div class="form-group"><input type="text" class="form-control" id="add_shape_text_box" placeholder="Enter Shape Colour"></div>';
         r_input += '</form>';
 
-        r_input += '<label for="x_val">X-Val:</label><input type="number" id="add_shape_x_val_input" name="x_val" min="-100" max="100" style="margin:5px;">';
+        r_input += '<label for="x_val">X-Val:</label><input type="number" id="add_shape_x_val_input" name="x_val" min="-10000" max="10000" style="margin:5px;">';
 
-        r_input += '<label for="y_val">Y-Val:</label><input type="number" id="add_shape_y_val_input" name="y_val" min="-100" max="100" style="margin:5px;">';
+        r_input += '<label for="y_val">Y-Val:</label><input type="number" id="add_shape_y_val_input" name="y_val" min="-10000" max="10000" style="margin:5px;">';
 
-        r_input += '<label for="width_val">Width:</label><input type="number" id="add_shape_width_input" name="width_val" min="0" max="100" style="margin:5px;">';
+        r_input += '<label for="width_val">Width:</label><input type="number" id="add_shape_width_input" name="width_val" min="0" max="10000" style="margin:5px;">';
 
-        r_input += '<label for="height_val">Height:</label><input type="number" id="add_shape_height_input" name="height_val" min="0" max="100" style="margin:5px;">';
+        r_input += '<label for="height_val">Height:</label><input type="number" id="add_shape_height_input" name="height_val" min="0" max="10000" style="margin:5px;">';
 
         r_input += '<label for="units">Units:</label><input type="text" id="units" name="units" maxlength="6" size="6" style="margin:5px;">';
 
@@ -538,11 +538,11 @@ function update_add_shape_input(value) {
         c_input += '<div class="form-group"><input type="text" class="form-control" id="add_shape_text_box" placeholder="Enter Shape Colour"></div>';
         c_input += '</form>';
 
-        c_input += '<label for="cx_val">cx:</label><input type="number" id="add_shape_cx_val_input" name="cx_val" min="-100" max="100" style="margin:5px;">';
+        c_input += '<label for="cx_val">cx:</label><input type="number" id="add_shape_cx_val_input" name="cx_val" min="-10000" max="10000" style="margin:5px;">';
 
-        c_input += '<label for="cy_val">cy:</label><input type="number" id="add_shape_cy_val_input" name="cy_val" min="-100" max="100" style="margin:5px;">';
+        c_input += '<label for="cy_val">cy:</label><input type="number" id="add_shape_cy_val_input" name="cy_val" min="-10000" max="10000" style="margin:5px;">';
 
-        c_input += '<label for="r_val">r:</label><input type="number" id="add_shape_r_val_input" name="r_val" min="0" max="100" style="margin:5px;">';
+        c_input += '<label for="r_val">r:</label><input type="number" id="add_shape_r_val_input" name="r_val" min="0" max="10000" style="margin:5px;">';
 
         c_input += '<label for="units">Units:</label><input type="text" id="units" name="units" maxlength="6" size="6" style="margin:5px;">';
 
