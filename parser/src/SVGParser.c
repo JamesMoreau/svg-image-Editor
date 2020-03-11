@@ -803,7 +803,6 @@ char* groupListToJSON_Wrapper(char* filename, char* schemaFile) {
 	return (s);
 }
 
-//! forgot to create list of all shapes!!!
 char* attrListToJSON_Wrapper(char* filename, char* schemaFile, int elemType, int elemIndex) {
 	SVGimage* img = createValidSVGimage(filename, schemaFile);
 	char* s = NULL;
