@@ -284,7 +284,7 @@ function show_attributes(element) {
             index: component.match(/\d+/)[0],    
         },
         success: function (component_data) {
-            ret_str = JSON.stringify(component_data.data, null, 1).replace(/\"/g, '')
+            ret_str = JSON.stringify(component_data.data, null, 2).replace(/\"/g, '')
                                                                   .replace(/{/g, '')
                                                                   .replace(/}/g, '')
                                                                   .replace(/[\[\]']+/g, '')
