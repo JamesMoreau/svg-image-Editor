@@ -882,9 +882,15 @@ void setAttribute_Wrapper(char* filename, char* schemaFile, int elemType, int el
 	printf("(C) EDITING: elemType: %d, elemIndex: %d, name: %s, value: %s\n", elemType, elemIndex, name, value);
 	SVGimage* img = createValidSVGimage(filename, schemaFile);
 	if (!img) return;
+
 	Attribute* a = Attribute_Constructor(name, value);
 	setAttribute(img, elemType, elemIndex, a);
-	writeSVGimage(img, filename);
+
+	if (validateSVGimage(img, schemaFile)) {
+		writeSVGimage(img, filename);
+		return;
+	}
+
 	deleteSVGimage(img);
 }
 
