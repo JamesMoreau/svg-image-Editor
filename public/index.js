@@ -358,6 +358,7 @@ function edit_svg() {
     console.log("ready to send edit request!");
     //send request to server to edit specified svg image
     $.ajax({
+        async: false,
         type: 'get',
         dataType: 'json',
         url: '/send_edit',
@@ -388,6 +389,7 @@ function create_svg_image() {
     }
 
     $.ajax({
+        async: false,
         type: 'get',
         dataType: 'json',
         url: '/create_image',
@@ -404,7 +406,7 @@ function create_svg_image() {
         }
     });
 
-    location.reload();
+    // location.reload();
 }
 
 function add_shape_to_svg() {
@@ -446,6 +448,7 @@ function add_shape_to_svg() {
 
         console.log('ready to send shape!')
         $.ajax({
+            async: false,
             type: 'get',
             dataType: 'json',
             url: '/add_shape',
@@ -479,6 +482,7 @@ function add_shape_to_svg() {
         console.log(circ_str);
 
         $.ajax({
+            async: false,
             type: 'get',
             dataType: 'json',
             url: '/add_shape',
@@ -579,6 +583,7 @@ function edit_attribute() {
     let attribute_value = $('#attribute_value_edit_entry_box').val();
 
     $.ajax({
+        async: false,
         type: 'get',
         dataType: 'json',
         url: '/edit_attribute',
@@ -622,6 +627,7 @@ function scale_shapes() {
     console.log("selected_image: " + selected_image + " shape selection: " + component_selection + "factor: " + scale_factor_selection);
 
     $.ajax({
+        async: false,
         type: 'get',
         dataType: 'json',
         url: '/scale_components',
