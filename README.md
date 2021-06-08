@@ -10,3 +10,5 @@
 
 # Example image made with this application.
 ![](uploads/landscape.svg)
+
+Contributors: James Moreau, Denis Nikitenko
